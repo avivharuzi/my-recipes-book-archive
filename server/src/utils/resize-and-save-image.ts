@@ -20,6 +20,14 @@ export const resizeAndSaveImage = async (
   };
 };
 
+export interface ImageSizes {
+  thumbnail: ImageSize;
+  small: ImageSize;
+  medium: ImageSize;
+  large: ImageSize;
+  original: ImageSize;
+}
+
 export interface ImageSize {
   path: string;
   width: number;

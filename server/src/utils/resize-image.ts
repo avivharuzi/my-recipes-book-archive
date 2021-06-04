@@ -8,7 +8,6 @@ export const resizeImage = async (
     .resize(width)
     .jpeg()
     .toBuffer({ resolveWithObject: true });
-
   return {
     data,
     width: info.width,
