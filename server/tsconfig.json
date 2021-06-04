@@ -1,0 +1,32 @@
+{
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "lib": [
+      "ESNext"
+    ],
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES2019",
+    "strict": true,
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  }
+}

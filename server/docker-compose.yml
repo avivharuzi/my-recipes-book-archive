@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  my-recipes-book-server:
+    container_name: my-recipes-book-server
+    restart: always
+    init: true
+    build: ./
+    ports:
+      - ${SERVER_PORT:-8080}:${SERVER_PORT:-8080}
+    env_file:
+      - ./.env
