@@ -5,4 +5,7 @@ export const config = Object.freeze({
     env: process.env.NODE_ENV ?? 'development',
     isProduction: process.env.NODE_ENV === 'production',
   },
+  mongodb: {
+    uri: process.env.MONGODB_URI || '',
+  },
 });
