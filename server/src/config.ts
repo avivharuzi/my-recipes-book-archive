@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export const config = Object.freeze({
   server: {
     hostname: process.env.SERVER_HOSTNAME ?? '0.0.0.0',
@@ -6,6 +8,14 @@ export const config = Object.freeze({
     isProduction: process.env.NODE_ENV === 'production',
   },
   mongodb: {
-    uri: process.env.MONGODB_URI || '',
+    uri: process.env.MONGODB_URI ?? '',
   },
+  smtp: {
+    host: process.env.SMTP_HOST ?? '',
+    port: process.env.SMTP_PORT ? +process.env.SMTP_PORT : 465,
+    user: process.env.SMTP_USER ?? '',
+    pass: process.env.SMTP_PASS ?? '',
+    from: process.env.SMTP_FROM ?? '',
+  },
+  emailTemplatesDirectory: path.join(__dirname, 'email-templates'),
 });
