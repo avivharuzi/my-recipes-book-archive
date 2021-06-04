@@ -22,4 +22,12 @@ export const config = Object.freeze({
     secret: process.env.JWT_SECRET ?? '',
     expiresIn: process.env.JWT_EXPIRES_IN || 7200,
   },
+  aws: {
+    s3: {
+      accessKey: process.env.AWS_S3_ACCESS_KEY ?? '',
+      secretKey: process.env.AWS_S3_SECRET_KEY ?? '',
+      bucketName: process.env.AWS_S3_BUCKET_NAME ?? '',
+      region: process.env.AWS_S3_REGION ?? '',
+    },
+  },
 });
