@@ -1,2 +1,3 @@
-# my-recipes-book
+# My Recipes Book
+
 Create and manage your own recipes book
