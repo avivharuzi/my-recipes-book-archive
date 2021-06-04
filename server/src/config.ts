@@ -18,4 +18,8 @@ export const config = Object.freeze({
     from: process.env.SMTP_FROM ?? '',
   },
   emailTemplatesDirectory: path.join(__dirname, 'email-templates'),
+  jwt: {
+    secret: process.env.JWT_SECRET ?? '',
+    expiresIn: process.env.JWT_EXPIRES_IN || 7200,
+  },
 });
