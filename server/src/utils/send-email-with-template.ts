@@ -5,6 +5,12 @@ import * as path from 'path';
 import { config } from '../config';
 import { sendEmail } from './send-email';
 
+export enum EmailTemplateType {
+  HTML = 'html',
+  Subject = 'subject',
+  Text = 'text',
+}
+
 export const sendEmailWithTemplate = async <T>(
   to: string,
   templateName: string,
@@ -26,12 +32,6 @@ export const sendEmailWithTemplate = async <T>(
 
   return sendEmail(to, { subject, html, text });
 };
-
-export enum EmailTemplateType {
-  HTML = 'html',
-  Subject = 'subject',
-  Text = 'text',
-}
 
 export const getEmailTemplateFilePath = (
   templateName: string,

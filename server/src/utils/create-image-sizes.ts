@@ -1,10 +1,14 @@
 import { defaultImageSizesWidth } from './default-image-sizes-width';
 import { getImageWidth } from './get-image-width';
-import {
-  ImageSize,
-  ImageSizes,
-  resizeAndSaveImage,
-} from './resize-and-save-image';
+import { ImageSize, resizeAndSaveImage } from './resize-and-save-image';
+
+export interface ImageSizes {
+  thumbnail: ImageSize;
+  small: ImageSize;
+  medium: ImageSize;
+  large: ImageSize;
+  original: ImageSize;
+}
 
 export const createImageSizes = async (
   input: string | Buffer

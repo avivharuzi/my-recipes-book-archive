@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose';
 
-import { ImageSizes } from '../../utils/resize-and-save-image';
+import { ImageSizes } from '../../utils/create-image-sizes';
 
 export interface Image extends Document {
   sizes: ImageSizes;

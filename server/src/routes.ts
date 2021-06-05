@@ -1,7 +1,7 @@
-import { Application, Router } from 'express';
+import { Application } from 'express';
 
-const apiRouter: Router = Router();
+import { authRouter } from './modules/auth/auth.router';
 
 export const routes = async (app: Application): Promise<void> => {
-  app.use('/api', apiRouter);
+  app.use('/auth', authRouter);
 };

@@ -3,6 +3,13 @@ import * as uuid from 'uuid';
 import { config } from '../config';
 import { getAwsS3Instance } from './get-aws-s3-instance';
 
+export interface UploadFile {
+  name?: string;
+  prefix?: string;
+  extension: string;
+  data: Buffer;
+}
+
 export const uploadFileToAwsS3 = async (
   mainDirectory: string,
   uploadFile: UploadFile
@@ -26,10 +33,3 @@ export const uploadFileToAwsS3 = async (
 
   return filePath;
 };
-
-export interface UploadFile {
-  name?: string;
-  prefix?: string;
-  extension: string;
-  data: Buffer;
-}

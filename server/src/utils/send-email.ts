@@ -2,6 +2,12 @@ import * as nodemailer from 'nodemailer';
 
 import { config } from '../config';
 
+export interface SendEmailOptions {
+  subject: string;
+  html: string;
+  text: string;
+}
+
 export const sendEmail = async (
   to: string,
   { subject, html, text }: SendEmailOptions
@@ -31,9 +37,3 @@ export const sendEmail = async (
 
   await transporter.sendMail(options);
 };
-
-export interface SendEmailOptions {
-  subject: string;
-  html: string;
-  text: string;
-}

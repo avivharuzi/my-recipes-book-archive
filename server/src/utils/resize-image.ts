@@ -1,5 +1,13 @@
 import * as sharp from 'sharp';
 
+export interface ResizedImage {
+  data: Buffer;
+  width: number;
+  height: number;
+  size: number;
+  extension: string;
+}
+
 export const resizeImage = async (
   input: string | Buffer,
   width: number
@@ -16,11 +24,3 @@ export const resizeImage = async (
     extension: 'jpg',
   };
 };
-
-export interface ResizedImage {
-  data: Buffer;
-  width: number;
-  height: number;
-  size: number;
-  extension: string;
-}

@@ -30,4 +30,5 @@ export const config = Object.freeze({
       region: process.env.AWS_S3_REGION ?? '',
     },
   },
+  clientBaseUrl: process.env.CLIENT_BASE_URL ?? '',
 });

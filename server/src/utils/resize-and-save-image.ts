@@ -2,6 +2,14 @@ import { getMimeType } from './get-mime-type';
 import { resizeImage } from './resize-image';
 import { saveImage } from './save-image';
 
+export interface ImageSize {
+  path: string;
+  width: number;
+  height: number;
+  mimeType: string;
+  size: number;
+}
+
 export const resizeAndSaveImage = async (
   input: string | Buffer,
   width: number,
@@ -19,19 +27,3 @@ export const resizeAndSaveImage = async (
     size: resizedImage.size,
   };
 };
-
-export interface ImageSizes {
-  thumbnail: ImageSize;
-  small: ImageSize;
-  medium: ImageSize;
-  large: ImageSize;
-  original: ImageSize;
-}
-
-export interface ImageSize {
-  path: string;
-  width: number;
-  height: number;
-  mimeType: string;
-  size: number;
-}

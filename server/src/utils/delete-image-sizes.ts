@@ -1,5 +1,5 @@
 import { deleteFileFromAwsS3 } from './delete-file-from-aws-s3';
-import { ImageSizes } from './resize-and-save-image';
+import { ImageSizes } from './create-image-sizes';
 
 export const deleteImageSizes = async (
   imageSizes: ImageSizes

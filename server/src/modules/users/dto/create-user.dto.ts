@@ -7,22 +7,25 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class SignUpDto {
+export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  readonly firstName?: string;
+  // @ts-ignore
+  readonly firstName: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  readonly lastName?: string;
+  // @ts-ignore
+  readonly lastName: string;
 
   @IsNotEmpty()
   @IsString()
   @IsEmail()
   @MaxLength(255)
-  readonly email?: string;
+  // @ts-ignore
+  readonly email: string;
 
   @IsNotEmpty()
   @IsString()
@@ -33,7 +36,8 @@ export class SignUpDto {
   // Can container dash, dot and underscore.
   // There is no length validation (min, max) in this regex!
   @Matches(/^([a-z0-9]|[-._](?![-._])).*$/)
-  readonly userName?: string;
+  // @ts-ignore
+  readonly userName: string;
 
   @IsNotEmpty()
   @IsString()
@@ -44,5 +48,6 @@ export class SignUpDto {
   // Passwords will contain at least 1 number or special character.
   // There is no length validation (min, max) in this regex!
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
-  readonly password?: string;
+  // @ts-ignore
+  readonly password: string;
 }
