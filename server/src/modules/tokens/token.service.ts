@@ -3,7 +3,7 @@ import { TokenModel, TokenType } from './token.model';
 
 export class TokenService {
   static async create(userId: string, type: TokenType) {
-    const token = createRandomToken();
+    const token = await createRandomToken();
     await TokenModel.create({
       user: userId,
       token,
