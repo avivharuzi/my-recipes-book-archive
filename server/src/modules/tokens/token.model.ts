@@ -8,13 +8,14 @@ export interface Token extends Document {
   token: string;
   type: TokenType;
   expiresAt: Date;
-  revokedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
+  isExpired: () => boolean;
 }
 
 export enum TokenType {
   UserVerification = 'userVerification',
+  PasswordReset = 'passwordReset',
   RefreshAuth = 'refreshAuth',
 }
 
@@ -27,9 +28,12 @@ const tokenSchema = new Schema<Token>(
       enum: Object.values(TokenType),
     },
     expiresAt: { type: Date, default: createExpiresAtDate(30) },
-    revokedAt: Date,
   },
   { timestamps: true }
 );
+
+tokenSchema.methods.isExpired = function (): boolean {
+  return this.expiresAt.getTime() < Date.now();
+};
 
 export const TokenModel = model<Token>('Token', tokenSchema, 'tokens');

@@ -10,6 +10,7 @@ import { Application } from 'express';
 
 import { config } from './config';
 import { errorMiddleware } from './middlewares/error.middleware';
+import { getUserMiddleware } from './middlewares/get-user.middleware';
 
 export const beforeMiddlewares = async (app: Application): Promise<void> => {
   app.use(cors());
@@ -21,8 +22,9 @@ export const beforeMiddlewares = async (app: Application): Promise<void> => {
   app.use(expressFileupload());
   app.use(compression({ threshold: 0 }));
   if (!config.server.isProduction) {
-    app.use(morgan('dev')); // Log requests on development.
+    app.use(morgan('dev'));
   }
+  app.use(getUserMiddleware);
 };
 
 export const afterMiddlewares = async (app: Application): Promise<void> => {

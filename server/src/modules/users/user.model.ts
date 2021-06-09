@@ -2,6 +2,7 @@ import { Document, model, PopulatedDoc, Schema } from 'mongoose';
 
 import { hashPassword } from '../../utils/hash-password';
 import { Image } from '../images/image.model';
+import { verifyPassword } from '../../utils/verify-password';
 
 export interface User extends Document {
   firstName: string;
@@ -14,6 +15,7 @@ export interface User extends Document {
   isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
+  comparePassword: (password: string) => Promise<string>;
 }
 
 export enum UserRole {
@@ -44,8 +46,14 @@ const userSchema = new Schema<User>(
   { timestamps: true }
 );
 
-userSchema.pre('save', async function () {
+userSchema.pre('save', async function (): Promise<void> {
   this.password = await hashPassword(this.password);
 });
+
+userSchema.methods.comparePassword = async function (
+  password: string
+): Promise<boolean> {
+  return verifyPassword(this.password, password);
+};
 
 export const UserModel = model<User>('User', userSchema, 'users');
