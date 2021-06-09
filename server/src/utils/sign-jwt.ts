@@ -12,7 +12,7 @@ export const signJwt = (
       payload,
       secret,
       {
-        expiresIn,
+        expiresIn: `${expiresIn}s`,
         subject,
       },
       (err, encoded) => {
