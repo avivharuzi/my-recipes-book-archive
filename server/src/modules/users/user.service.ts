@@ -4,6 +4,7 @@ import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { EmailTemplateService } from '../shared/email-template.service';
 import { ForgotPasswordDto } from '../auth/dto/forgot-password.dto';
 import { hashPassword } from '../../utils/hash-password';
+import { ImageService } from '../images/image.service';
 import { LoginDto } from '../auth/dto/login.dto';
 import { ResendVerificationDto } from '../auth/dto/resend-verification.dto';
 import { ResetPasswordDto } from '../auth/dto/reset-password.dto';
@@ -42,7 +43,7 @@ export class UserService {
   }
 
   static async getById(id: string): Promise<User | null> {
-    return UserModel.findById(id);
+    return UserModel.findById(id).populate('profileImage');
   }
 
   static async isEmailAlreadyInUsed(email: string): Promise<boolean> {
@@ -146,7 +147,9 @@ export class UserService {
     } else {
       throw new BadRequest('The email or username is required.');
     }
-    const user: User | null = await UserModel.findOne(searchBy);
+    const user: User | null = await UserModel.findOne(searchBy).populate(
+      'profileImage'
+    );
     if (!user || !(await user.comparePassword(password))) {
       throw new BadRequest(
         'The username or password you have entered is invalid'
@@ -184,20 +187,35 @@ export class UserService {
 
   static async updateDetails(
     user: User,
-    updateUserDto: UpdateUserDto
+    updateUserDto: UpdateUserDto,
+    profileImage: Buffer | string | null
   ): Promise<UserPublicDetails> {
     const { firstName, lastName } = updateUserDto;
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      user.id,
-      {
-        firstName,
-        lastName,
-      },
-      { new: true }
-    ).populate('profileImage');
+    const update: {
+      firstName: string;
+      lastName: string;
+      profileImage?: string;
+    } = {
+      firstName,
+      lastName,
+    };
+
+    if (profileImage !== null && user.profileImage?.id) {
+      await ImageService.delete(user.profileImage.id);
+      update.profileImage = undefined;
+    }
+
+    if (Buffer.isBuffer(profileImage)) {
+      update.profileImage = (await ImageService.saveAndCreate(profileImage)).id;
+    }
+
+    const updatedUser = await UserModel.findByIdAndUpdate(user.id, update, {
+      new: true,
+    }).populate('profileImage');
     if (!updatedUser) {
       throw new BadRequest('Failed to update account details.');
     }
+
     return UserService.getPublicDetails(updatedUser);
   }
 
