@@ -3,10 +3,9 @@
 import {
   IsEmail,
   IsNotEmpty,
-  IsString,
+  IsString, Length,
   Matches,
   MaxLength,
-  MinLength,
 } from 'class-validator';
 
 export class CreateUserDto {
@@ -28,15 +27,13 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(4)
-  @MaxLength(20)
+  @Length(4, 20)
   @Matches(/^([a-z0-9]|[-._](?![-._])).*$/)
   readonly userName: string;
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(8)
-  @MaxLength(20)
+  @Length(8, 20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
   readonly password: string;
 }
