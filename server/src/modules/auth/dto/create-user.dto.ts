@@ -12,12 +12,12 @@ import {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  @MaxLength(255)
+  @MaxLength(64)
   readonly firstName: string;
 
   @IsNotEmpty()
   @IsString()
-  @MaxLength(255)
+  @MaxLength(64)
   readonly lastName: string;
 
   @IsNotEmpty()
