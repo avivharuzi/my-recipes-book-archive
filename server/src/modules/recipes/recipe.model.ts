@@ -10,7 +10,7 @@ export interface Recipe extends Document {
   description: string;
   ingredients: string[];
   directions: string[];
-  coverImage?: PopulatedDoc<Image & Document>;
+  coverImage: PopulatedDoc<Image & Document>;
   preparationTime: number;
   cookingTime: number;
   servingsAmount: number;
@@ -26,7 +26,7 @@ const recipeSchema = new Schema<Recipe>(
     description: { type: String, required: true, trim: true },
     ingredients: [{ type: String, trim: true }],
     directions: [{ type: String, trim: true }],
-    coverImage: { type: Schema.Types.ObjectId, ref: 'Image' },
+    coverImage: { type: Schema.Types.ObjectId, required: true, ref: 'Image' },
     preparationTime: { type: Number, required: true },
     cookingTime: { type: Number, required: true },
     servingsAmount: { type: Number, required: true },
