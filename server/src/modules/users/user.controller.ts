@@ -19,7 +19,7 @@ export class UserController {
     return expressAsyncHandler(async (req, res) => {
       const updateUserDto = await transformToClassAndValidate<UpdateUserDto>(
         UpdateUserDto,
-        req.body
+        JSON.parse(req.body?.data)
       );
 
       let profileImage = null;
