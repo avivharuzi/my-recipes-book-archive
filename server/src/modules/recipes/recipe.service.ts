@@ -11,7 +11,7 @@ export class RecipeService {
     coverImageFileData: Buffer
   ): Promise<Recipe> {
     const { title } = createRecipeDto;
-    const slug = createSlug(title)
+    const slug = createSlug(title);
     const coverImage = await ImageService.saveAndCreate(coverImageFileData);
     return RecipeModel.create({
       user: user.id,
