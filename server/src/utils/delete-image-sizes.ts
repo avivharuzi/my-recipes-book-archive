@@ -4,7 +4,9 @@ import { ImageSizes } from './create-image-sizes';
 export const deleteImageSizes = async (
   imageSizes: ImageSizes
 ): Promise<void[]> => {
-  const paths = Object.values(imageSizes).map(imageSize => imageSize.path);
+  const paths = Object.values(imageSizes)
+    .map(imageSize => imageSize.path)
+    .filter(path => path);
   const deletePromises = paths.map(path => deleteFileFromAwsS3(path));
   return Promise.all(deletePromises);
 };
