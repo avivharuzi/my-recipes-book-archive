@@ -6,7 +6,6 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  MinLength,
 } from 'class-validator';
 
 export class LoginDto {
@@ -18,8 +17,7 @@ export class LoginDto {
 
   @IsOptional()
   @IsString()
-  @MinLength(4)
-  @MaxLength(20)
+  @MaxLength(255)
   readonly userName: string;
 
   @IsNotEmpty()
