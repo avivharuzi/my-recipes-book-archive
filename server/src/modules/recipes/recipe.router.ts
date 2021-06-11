@@ -7,5 +7,6 @@ const recipeRouter = Router();
 recipeRouter.get('/:id', RecipeController.show());
 recipeRouter.post('/', RecipeController.create());
 recipeRouter.put('/:id', RecipeController.update());
+recipeRouter.delete('/:id', RecipeController.delete());
 
 export { recipeRouter };

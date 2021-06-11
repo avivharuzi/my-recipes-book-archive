@@ -61,7 +61,20 @@ export class RecipeController {
 
   static show(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
-      const recipe = await RecipeService.findByUser(req.params.id, res.locals.user);
+      const recipe = await RecipeService.findByUser(
+        req.params.id,
+        res.locals.user
+      );
+      res.send(recipe);
+    });
+  }
+
+  static delete(): RequestHandler {
+    return expressAsyncHandler(async (req, res) => {
+      const recipe = await RecipeService.deleteByUser(
+        req.params.id,
+        res.locals.user
+      );
       res.send(recipe);
     });
   }

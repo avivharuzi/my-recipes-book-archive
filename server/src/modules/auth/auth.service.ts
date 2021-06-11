@@ -48,9 +48,10 @@ export class AuthService {
   static async createLoginTokens(
     user: UserPublicDetails
   ): Promise<LoginTokens> {
-    const accessToken = await signJwt(user.id);
+    const userId = user.id;
+    const accessToken = await signJwt(userId);
     const refreshToken = await TokenService.create(
-      user.id,
+      userId,
       TokenType.RefreshAuth
     );
     return { accessToken, refreshToken: refreshToken.token };

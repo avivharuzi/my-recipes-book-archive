@@ -5,6 +5,7 @@ import { ImageService } from '../images/image.service';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { Recipe, RecipeModel } from './recipe.model';
 import { User } from '../users/user.model';
+import { BadRequest } from '../../errors/bad-request';
 
 export class RecipeService {
   static async create(
@@ -13,7 +14,9 @@ export class RecipeService {
     coverImageFileData: Buffer
   ): Promise<Recipe> {
     const query = RecipeService.getCommonCreateOrUpdateQuery(createRecipeDto);
-    query.coverImage = (await ImageService.saveAndCreate(coverImageFileData)).id;
+    query.coverImage = (
+      await ImageService.saveAndCreate(coverImageFileData)
+    ).id;
     query.user = user.id;
     return RecipeModel.create(query);
   }
@@ -24,17 +27,16 @@ export class RecipeService {
     updateRecipeDto: UpdateRecipeDto,
     coverImageFileData: Buffer | null
   ): Promise<Recipe | null> {
-
     const query = RecipeService.getCommonCreateOrUpdateQuery(updateRecipeDto);
 
     const recipe = await RecipeService.findByUser(id, user);
 
     if (coverImageFileData !== null) {
       await ImageService.delete(recipe.coverImage.id);
-      query.coverImage = (await ImageService.saveAndCreate(coverImageFileData))
-        .id;
+      query.coverImage = (
+        await ImageService.saveAndCreate(coverImageFileData)
+      ).id;
     }
-
 
     return RecipeModel.findOneAndUpdate(
       {
@@ -51,7 +53,7 @@ export class RecipeService {
   static async findByUser(id: string, user: User): Promise<Recipe> {
     const recipe = await RecipeModel.findOne({
       _id: id,
-      user: user.id
+      user: user.id,
     }).populate('coverImage');
     if (!recipe) {
       throw new NotFound();
@@ -59,7 +61,20 @@ export class RecipeService {
     return recipe;
   }
 
-  static getCommonCreateOrUpdateQuery(recipeDto: CreateRecipeDto | UpdateRecipeDto): RecipeCommonCreateOrUpdateQuery {
+  static async deleteByUser(id: string, user: User): Promise<Recipe> {
+    const recipe = await RecipeModel.findOneAndDelete({
+      _id: id,
+      user: user.id,
+    });
+    if (!recipe) {
+      throw new BadRequest();
+    }
+    return recipe;
+  }
+
+  static getCommonCreateOrUpdateQuery(
+    recipeDto: CreateRecipeDto | UpdateRecipeDto
+  ): RecipeCommonCreateOrUpdateQuery {
     const { title } = recipeDto;
     const slug = createSlug(title);
     return {
@@ -71,7 +86,7 @@ export class RecipeService {
       preparationTime: recipeDto.preparationTime,
       cookingTime: recipeDto.cookingTime,
       servingsAmount: recipeDto.servingsAmount,
-    }
+    };
   }
 }
 
