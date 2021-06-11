@@ -12,7 +12,7 @@ export const validateUploadedFilesImages = (
       minCount: 1,
       maxCount,
       maxSize: '10MB',
-      allowedExtensions: ['jpg', 'png', 'gif'],
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
       allowedMimetypes: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'],
     });
     expressFileuploadValidator.validate(uploadedFiles);
