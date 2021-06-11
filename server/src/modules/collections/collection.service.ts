@@ -52,11 +52,11 @@ export class CollectionService {
       {
         _id: id,
         user: user.id,
-        recipes,
       },
       {
         name,
         description,
+        recipes,
       },
       { new: true }
     ).populate('recipes');
