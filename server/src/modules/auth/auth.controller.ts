@@ -9,6 +9,7 @@ import { LoginDto } from './dto/login.dto';
 import { ResendVerificationDto } from './dto/resend-verification.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { transformToClassAndValidate } from '../../utils/transform-to-class-and-validate';
+import { UserService } from '../users/user.service';
 
 export class AuthController {
   static signUp(): RequestHandler {
@@ -18,15 +19,14 @@ export class AuthController {
         req.body
       );
       await AuthService.signUp(createUserDto);
-      return res.send();
+      res.send();
     });
   }
 
   static verify(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
-      const token = req.params.token;
-      await AuthService.verify(token);
-      return res.send();
+      await AuthService.verify(req.params.token);
+      res.send();
     });
   }
 
@@ -37,7 +37,7 @@ export class AuthController {
         req.body
       );
       await AuthService.resendVerification(resendVerificationDto);
-      return res.send();
+      res.send();
     });
   }
 
@@ -48,19 +48,18 @@ export class AuthController {
         req.body
       );
       await AuthService.forgotPassword(forgotPasswordDto);
-      return res.send();
+      res.send();
     });
   }
 
   static resetPassword(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
-      const token = req.params.token;
       const resetPasswordDto = await transformToClassAndValidate<ResetPasswordDto>(
         ResetPasswordDto,
         req.body
       );
-      await AuthService.resetPassword(token, resetPasswordDto);
-      return res.send();
+      await AuthService.resetPassword(req.params.token, resetPasswordDto);
+      res.send();
     });
   }
 
@@ -74,7 +73,8 @@ export class AuthController {
       const loginTokens = await AuthService.createLoginTokens(user);
       const cookieService = new CookieService(req, res);
       cookieService.createTokens(loginTokens);
-      return res.send(user);
+      const userPublicDetails = UserService.getPublicDetails(user);
+      res.send(userPublicDetails);
     });
   }
 
@@ -86,7 +86,7 @@ export class AuthController {
         await AuthService.deleteRefreshToken(refreshToken);
       }
       cookieService.deleteTokens();
-      return res.send();
+      res.send();
     });
   }
 }

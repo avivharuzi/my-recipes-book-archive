@@ -6,10 +6,10 @@ export class CreateCollectionDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(128)
-  name: string;
+  readonly name: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  description?: string;
+  readonly description?: string;
 }

@@ -9,7 +9,7 @@ import { signJwt } from '../../utils/sign-jwt';
 import { TokenService } from '../tokens/token.service';
 import { TokenType } from '../tokens/token.model';
 import { UpdateLoginTokens } from './update-login-tokens';
-import { UserPublicDetails } from '../users/user-public-details';
+import { User } from '../users/user.model';
 import { UserService } from '../users/user.service';
 import { verifyJwt } from '../../utils/verify-jwt';
 
@@ -41,20 +41,18 @@ export class AuthService {
     await UserService.resetPassword(token, resetPasswordDto);
   }
 
-  static async login(loginDto: LoginDto): Promise<UserPublicDetails> {
+  static async login(loginDto: LoginDto): Promise<User> {
     return UserService.login(loginDto);
   }
 
-  static async createLoginTokens(
-    user: UserPublicDetails
-  ): Promise<LoginTokens> {
+  static async createLoginTokens(user: User): Promise<LoginTokens> {
     const userId = user.id;
     const accessToken = await signJwt(userId);
-    const refreshToken = await TokenService.create(
-      userId,
+    const { token: refreshToken } = await TokenService.create(
+      user,
       TokenType.RefreshAuth
     );
-    return { accessToken, refreshToken: refreshToken.token };
+    return { accessToken, refreshToken };
   }
 
   static async deleteRefreshToken(refreshToken: string): Promise<void> {

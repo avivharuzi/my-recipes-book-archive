@@ -1,12 +1,13 @@
 import { BadRequest } from '../../errors/bad-request';
 import { createRandomToken } from '../../utils/create-random-token';
 import { Token, TokenModel, TokenType } from './token.model';
+import { User } from '../users/user.model';
 
 export class TokenService {
-  static async create(userId: string, type: TokenType): Promise<Token> {
+  static async create(user: User, type: TokenType): Promise<Token> {
     const token = await createRandomToken();
     return TokenModel.create({
-      user: userId,
+      user: user.id,
       token,
       type,
     });
@@ -46,23 +47,20 @@ export class TokenService {
     return details;
   }
 
-  static async findByUser(
-    userId: string,
-    type: TokenType
-  ): Promise<Token | null> {
+  static async findByUser(user: User, type: TokenType): Promise<Token | null> {
     return TokenModel.findOne({
-      user: userId,
+      user: user.id,
       type,
     }).populate('user');
   }
 
   static async findByUserAndCreateOrUpdate(
-    userId: string,
+    user: User,
     type: TokenType
   ): Promise<Token | null> {
-    const details = await TokenService.findByUser(userId, type);
+    const details = await TokenService.findByUser(user, type);
     if (!details) {
-      return TokenService.create(userId, TokenType.PasswordReset);
+      return TokenService.create(user, TokenType.PasswordReset);
     } else {
       return TokenService.update(details.id);
     }

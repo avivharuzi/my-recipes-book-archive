@@ -6,6 +6,7 @@ import { ForgotPasswordDto } from '../auth/dto/forgot-password.dto';
 import { hashPassword } from '../../utils/hash-password';
 import { ImageService } from '../images/image.service';
 import { LoginDto } from '../auth/dto/login.dto';
+import { NotFound } from '../../errors/not-found';
 import { ResendVerificationDto } from '../auth/dto/resend-verification.dto';
 import { ResetPasswordDto } from '../auth/dto/reset-password.dto';
 import { TokenService } from '../tokens/token.service';
@@ -35,15 +36,19 @@ export class UserService {
       password,
     });
     const { token } = await TokenService.create(
-      user.id,
+      user,
       TokenType.UserVerification
     );
     await this.sendUserVerificationEmail(token, user);
     return user;
   }
 
-  static async getById(id: string): Promise<User | null> {
-    return UserModel.findById(id).populate('profileImage');
+  static async getById(id: string): Promise<User> {
+    const user = await UserModel.findById(id).populate('profileImage');
+    if (!user) {
+      throw new NotFound();
+    }
+    return user;
   }
 
   static async isEmailAlreadyInUsed(email: string): Promise<boolean> {
@@ -88,7 +93,7 @@ export class UserService {
       );
     }
     const tokenDetails = await TokenService.findByUserAndCreateOrUpdate(
-      user.id,
+      user,
       TokenType.UserVerification
     );
     if (tokenDetails) {
@@ -108,7 +113,7 @@ export class UserService {
       throw new BadRequest('This account has not yet verified.');
     }
     const tokenDetails = await TokenService.findByUserAndCreateOrUpdate(
-      user.id,
+      user,
       TokenType.PasswordReset
     );
     if (tokenDetails) {
@@ -137,7 +142,7 @@ export class UserService {
     });
   }
 
-  static async login(loginDto: LoginDto): Promise<UserPublicDetails> {
+  static async login(loginDto: LoginDto): Promise<User> {
     const { email, userName, password } = loginDto;
     let searchBy: { email?: string; userName?: string };
     if (email) {
@@ -158,7 +163,7 @@ export class UserService {
     if (!user.isVerified) {
       throw new BadRequest('This account has not yet verified.');
     }
-    return UserService.getPublicDetails(user);
+    return user;
   }
 
   static async sendUserVerificationEmail(

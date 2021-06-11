@@ -43,10 +43,7 @@ export const getUserMiddleware = async (
   }
 
   try {
-    const user = await UserService.getById(userId);
-    if (user) {
-      res.locals.user = user;
-    }
+    res.locals.user = await UserService.getById(userId);
   } catch (_) {}
 
   next();

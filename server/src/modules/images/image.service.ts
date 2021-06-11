@@ -2,6 +2,7 @@ import { BadRequest } from '../../errors/bad-request';
 import { createImageSizes, ImageSizes } from '../../utils/create-image-sizes';
 import { deleteImageSizes } from '../../utils/delete-image-sizes';
 import { Image, ImageModel } from './image.model';
+import { NotFound } from '../../errors/not-found';
 
 export class ImageService {
   static async saveAndCreateMany(filesData: Buffer[]): Promise<Image[]> {
@@ -23,9 +24,9 @@ export class ImageService {
   }
 
   static async delete(id: string): Promise<Image> {
-    const image: Image | null = await ImageModel.findByIdAndDelete(id);
+    const image = await ImageModel.findByIdAndDelete(id);
     if (!image) {
-      throw new BadRequest('Not found any image to delete.');
+      throw new NotFound();
     }
     await deleteImageSizes(image.sizes);
     return image;

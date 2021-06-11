@@ -13,12 +13,12 @@ export class LoginDto {
   @IsString()
   @MaxLength(255)
   @IsEmail()
-  readonly email: string;
+  readonly email?: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  readonly userName: string;
+  readonly userName?: string;
 
   @IsNotEmpty()
   @IsString()

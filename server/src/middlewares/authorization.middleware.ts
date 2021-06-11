@@ -1,12 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { Forbidden } from '../errors/forbidden';
-import { User, UserRole } from '../modules/users/user.model';
+import { UserRole } from '../modules/users/user.model';
 
 export const authorizationMiddleware = (allowedUserRoles: UserRole[]) => {
   return (_req: Request, res: Response, next: NextFunction) => {
-    const user: User = res.locals.user;
-    const userRoles = user.roles;
+    const userRoles = res.locals.user.roles;
     const commonRoles = allowedUserRoles.filter(allowedUserRole =>
       userRoles.includes(allowedUserRole)
     );

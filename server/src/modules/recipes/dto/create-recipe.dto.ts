@@ -13,33 +13,33 @@ export class CreateRecipeDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(128)
-  title: string;
+  readonly title: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  description: string;
+  readonly description: string;
 
   @IsNotEmpty()
   @IsArray()
-  ingredients: string[];
+  readonly ingredients: string[];
 
   @IsNotEmpty()
   @IsArray()
-  directions: string[];
+  readonly directions: string[];
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  preparationTime: number;
+  readonly preparationTime: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  cookingTime: number;
+  readonly cookingTime: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  servingsAmount: number;
+  readonly servingsAmount: number;
 }

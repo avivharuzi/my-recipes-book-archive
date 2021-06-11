@@ -7,6 +7,23 @@ import { transformToClassAndValidate } from '../../utils/transform-to-class-and-
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 
 export class CollectionController {
+  static index(): RequestHandler {
+    return expressAsyncHandler(async (_req, res) => {
+      const collections = await CollectionService.getAllByUser(res.locals.user);
+      res.send(collections);
+    });
+  }
+
+  static show(): RequestHandler {
+    return expressAsyncHandler(async (req, res) => {
+      const collection = await CollectionService.getDetailsByUser(
+        req.params.id,
+        res.locals.user
+      );
+      res.send(collection);
+    });
+  }
+
   static create(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
       const createCollectionDto = await transformToClassAndValidate<CreateCollectionDto>(
@@ -15,7 +32,7 @@ export class CollectionController {
       );
       const collection = await CollectionService.create(
         res.locals.user,
-        createCollectionDto,
+        createCollectionDto
       );
       res.send(collection);
     });
@@ -36,19 +53,9 @@ export class CollectionController {
     });
   }
 
-  static show(): RequestHandler {
-    return expressAsyncHandler(async (req, res) => {
-      const collection = await CollectionService.find(
-        req.params.id,
-        res.locals.user
-      );
-      res.send(collection);
-    });
-  }
-
   static delete(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
-      const collection = await CollectionService.delete(
+      const collection = await CollectionService.deleteByUser(
         req.params.id,
         res.locals.user
       );

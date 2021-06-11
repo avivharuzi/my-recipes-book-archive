@@ -4,12 +4,29 @@ import { RequestHandler } from 'express';
 import { BadRequest } from '../../errors/bad-request';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { getFilesDataFromUploadedFiles } from '../../utils/get-files-data-from-uploaded-files';
-import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { RecipeService } from './recipe.service';
 import { transformToClassAndValidate } from '../../utils/transform-to-class-and-validate';
+import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { validateUploadedFilesImages } from '../../utils/validate-uploaded-files-images';
 
 export class RecipeController {
+  static index(): RequestHandler {
+    return expressAsyncHandler(async (_req, res) => {
+      const recipes = await RecipeService.getAllByUser(res.locals.user);
+      res.send(recipes);
+    });
+  }
+
+  static show(): RequestHandler {
+    return expressAsyncHandler(async (req, res) => {
+      const recipe = await RecipeService.getDetailsByUser(
+        req.params.id,
+        res.locals.user
+      );
+      res.send(recipe);
+    });
+  }
+
   static create(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
       const createRecipeDto = await transformToClassAndValidate<CreateRecipeDto>(
@@ -36,7 +53,7 @@ export class RecipeController {
 
   static update(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
-      const createRecipeDto = await transformToClassAndValidate<UpdateRecipeDto>(
+      const updateRecipeDto = await transformToClassAndValidate<UpdateRecipeDto>(
         UpdateRecipeDto,
         JSON.parse(req.body?.data)
       );
@@ -52,18 +69,8 @@ export class RecipeController {
       const recipe = await RecipeService.update(
         req.params.id,
         res.locals.user,
-        createRecipeDto,
+        updateRecipeDto,
         coverImageFileData
-      );
-      res.send(recipe);
-    });
-  }
-
-  static show(): RequestHandler {
-    return expressAsyncHandler(async (req, res) => {
-      const recipe = await RecipeService.findByUser(
-        req.params.id,
-        res.locals.user
       );
       res.send(recipe);
     });

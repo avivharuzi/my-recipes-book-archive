@@ -1,56 +1,20 @@
-import { NotFound } from '../../errors/not-found';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { createSlug } from '../../utils/create-slug';
 import { ImageService } from '../images/image.service';
-import { UpdateRecipeDto } from './dto/update-recipe.dto';
+import { NotFound } from '../../errors/not-found';
 import { Recipe, RecipeModel } from './recipe.model';
+import { RecipeCommonCreateOrUpdateQuery } from './recipe-common-create-or-update-query';
+import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { User } from '../users/user.model';
-import { BadRequest } from '../../errors/bad-request';
 
 export class RecipeService {
-  static async create(
-    user: User,
-    createRecipeDto: CreateRecipeDto,
-    coverImageFileData: Buffer
-  ): Promise<Recipe> {
-    const query = RecipeService.getCommonCreateOrUpdateQuery(createRecipeDto);
-    query.coverImage = (
-      await ImageService.saveAndCreate(coverImageFileData)
-    ).id;
-    query.user = user.id;
-    return RecipeModel.create(query);
+  static async getAllByUser(user: User): Promise<Recipe[]> {
+    return RecipeModel.find({
+      user: user.id,
+    }).populate('coverImage');
   }
 
-  static async update(
-    id: string,
-    user: User,
-    updateRecipeDto: UpdateRecipeDto,
-    coverImageFileData: Buffer | null
-  ): Promise<Recipe | null> {
-    const query = RecipeService.getCommonCreateOrUpdateQuery(updateRecipeDto);
-
-    const recipe = await RecipeService.findByUser(id, user);
-
-    if (coverImageFileData !== null) {
-      await ImageService.delete(recipe.coverImage.id);
-      query.coverImage = (
-        await ImageService.saveAndCreate(coverImageFileData)
-      ).id;
-    }
-
-    return RecipeModel.findOneAndUpdate(
-      {
-        id,
-        user: user.id,
-      },
-      query,
-      {
-        new: true,
-      }
-    ).populate('coverImage');
-  }
-
-  static async findByUser(id: string, user: User): Promise<Recipe> {
+  static async getDetailsByUser(id: string, user: User): Promise<Recipe> {
     const recipe = await RecipeModel.findOne({
       _id: id,
       user: user.id,
@@ -61,15 +25,66 @@ export class RecipeService {
     return recipe;
   }
 
+  static async create(
+    user: User,
+    createRecipeDto: CreateRecipeDto,
+    coverImageFileData: Buffer
+  ): Promise<Recipe> {
+    const query = RecipeService.getCommonCreateOrUpdateQuery(createRecipeDto);
+    const coverImage = await ImageService.saveAndCreate(coverImageFileData);
+    query.coverImage = coverImage.id;
+    query.user = user.id;
+    const recipe = await RecipeModel.create(query);
+    return RecipeService.getDetailsByUser(recipe.id, user);
+  }
+
+  static async update(
+    id: string,
+    user: User,
+    updateRecipeDto: UpdateRecipeDto,
+    coverImageFileData: Buffer | null
+  ): Promise<Recipe | null> {
+    const query = RecipeService.getCommonCreateOrUpdateQuery(updateRecipeDto);
+    const recipe = await RecipeService.getDetailsByUser(id, user);
+
+    if (coverImageFileData !== null) {
+      await ImageService.delete(recipe.coverImage.id);
+      const coverImage = await ImageService.saveAndCreate(coverImageFileData);
+      query.coverImage = coverImage.id;
+    }
+
+    return RecipeModel.findOneAndUpdate(
+      {
+        _id: id,
+        user: user.id,
+      },
+      query,
+      {
+        new: true,
+      }
+    ).populate('coverImage');
+  }
+
   static async deleteByUser(id: string, user: User): Promise<Recipe> {
     const recipe = await RecipeModel.findOneAndDelete({
       _id: id,
       user: user.id,
     });
     if (!recipe) {
-      throw new BadRequest();
+      throw new NotFound();
     }
     return recipe;
+  }
+
+  static async isAllBelongToUser(
+    user: User,
+    recipeIds: string[]
+  ): Promise<boolean> {
+    const recipes = await RecipeModel.find({
+      _id: { $in: recipeIds },
+      user: user.id,
+    });
+    return recipeIds.length === recipes.length;
   }
 
   static getCommonCreateOrUpdateQuery(
@@ -88,17 +103,4 @@ export class RecipeService {
       servingsAmount: recipeDto.servingsAmount,
     };
   }
-}
-
-interface RecipeCommonCreateOrUpdateQuery {
-  user?: string;
-  title: string;
-  slug: string;
-  description: string;
-  ingredients: string[];
-  directions: string[];
-  preparationTime: number;
-  cookingTime: number;
-  servingsAmount: number;
-  coverImage?: string;
 }
