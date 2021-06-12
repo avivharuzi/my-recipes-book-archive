@@ -1,0 +1,14 @@
+<div class="h-full relative">
+  <button class="focus:outline-none" (click)="toggleDropdownMenu()">
+    <img class="rounded-full" width="35" height="35" [src]="profileImg" alt="Profile Image" />
+  </button>
+  <ul class="absolute top-10 right-0 flex flex-col w-48 lg:w-64 bg-white divide-y shadow rounded-md z-10" appOutsideClick (outsideClick)="isDropdownMenuOpen = false" *ngIf="isDropdownMenuOpen">
+    <li class="w-full">
+      <div class="p-5">
+        <span class="font-bold">{{ userName }}</span>
+      </div>
+    </li>
+    <li class="w-full nav-item"><a routerLink="/settings">Settings</a></li>
+    <li class="w-full nav-item"><a (click)="logOut.emit()">Log Out</a></li>
+  </ul>
+</div>
