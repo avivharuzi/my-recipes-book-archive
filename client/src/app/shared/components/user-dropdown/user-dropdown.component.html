@@ -1,8 +1,32 @@
 <div class="h-full relative">
   <button class="focus:outline-none" (click)="toggleDropdownMenu()">
-    <img class="rounded-full" width="35" height="35" [src]="profileImg" alt="Profile Image" />
+    <img
+      class="rounded-full"
+      width="35"
+      height="35"
+      alt="Profile Image"
+      appDefaultImage=""
+      [src]="profileImg"
+    />
   </button>
-  <ul class="absolute top-10 right-0 flex flex-col w-48 lg:w-64 bg-white divide-y shadow rounded-md z-10" appOutsideClick (outsideClick)="isDropdownMenuOpen = false" *ngIf="isDropdownMenuOpen">
+  <ul
+    class="
+      absolute
+      top-10
+      right-0
+      flex flex-col
+      w-48
+      lg:w-64
+      bg-white
+      divide-y
+      shadow
+      rounded-md
+      z-10
+    "
+    appOutsideClick="assets/images/defaults/default-profile.jpg"
+    *ngIf="isDropdownMenuOpen"
+    (outsideClick)="isDropdownMenuOpen = false"
+  >
     <li class="w-full">
       <div class="p-5">
         <span class="font-bold">{{ userName }}</span>

@@ -1,0 +1,63 @@
+<div class="bg-white shadow">
+  <div class="lg:container lg:mx-auto">
+    <!-- Top Mobile Menu -->
+    <div
+      class="flex items-center justify-between px-5 py-3 border-b-2 lg:hidden"
+    >
+      <div class="flex items-center">
+        <div class="mr-5">
+          <button
+            (click)="toggleMenu()"
+            class="p-4 rounded-full hover:bg-gray-100 focus:outline-none"
+          >
+            <span class="flex material-icons">menu</span>
+          </button>
+        </div>
+        <a routerLink="/"><app-logo></app-logo></a>
+      </div>
+      <ng-container *ngIf="user">
+        <app-user-dropdown (logOut)="logOut.emit()"></app-user-dropdown>
+      </ng-container>
+    </div>
+    <!-- Main Menu -->
+    <div
+      class="flex-col lg:flex lg:flex-row lg:items-center lg:justify-between"
+      [ngClass]="{ flex: showMenu, hidden: !showMenu }"
+    >
+      <ul class="flex flex-col lg:flex-row lg:items-center">
+        <li class="hidden lg:block mr-5">
+          <a class="block" routerLink="/"><app-logo></app-logo></a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/collections" routerLinkActive="active">Collections</a>
+        </li>
+      </ul>
+      <ul class="flex flex-col lg:flex-row lg:items-center">
+        <ng-container *ngIf="user; else noUserTemplate">
+          <li class="hidden lg:flex relative">
+            <app-user-dropdown
+              [userName]="user.userName"
+              [profileImg]="
+                user.profileImage
+                  ? (user.profileImage | image: 'thumbnail')
+                  : ''
+              "
+              (logOut)="logOut.emit()"
+            ></app-user-dropdown>
+          </li>
+        </ng-container>
+        <ng-template #noUserTemplate>
+          <li class="nav-item">
+            <a routerLink="/auth/login" routerLinkActive="active">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/auth/sign-up" routerLinkActive="active">Sign Up</a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</div>
