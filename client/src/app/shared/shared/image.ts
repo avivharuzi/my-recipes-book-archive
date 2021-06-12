@@ -20,3 +20,10 @@ export interface ImageSize {
   mimeType: string;
   size: number;
 }
+
+export type ImageSizesType =
+  | 'thumbnail'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'original';
