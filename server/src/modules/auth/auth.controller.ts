@@ -52,6 +52,13 @@ export class AuthController {
     });
   }
 
+  static checkResetPassword(): RequestHandler {
+    return expressAsyncHandler(async (req, res) => {
+      await AuthService.checkResetPassword(req.params.token);
+      res.send();
+    });
+  }
+
   static resetPassword(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
       const resetPasswordDto = await transformToClassAndValidate<ResetPasswordDto>(

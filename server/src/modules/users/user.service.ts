@@ -121,6 +121,10 @@ export class UserService {
     }
   }
 
+  static async checkResetPassword(token: string): Promise<void> {
+    await TokenService.findByTokenAndValidate(token, TokenType.PasswordReset);
+  }
+
   static async resetPassword(
     token: string,
     resetPasswordDto: ResetPasswordDto

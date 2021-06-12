@@ -34,6 +34,10 @@ export class AuthService {
     await UserService.forgotPassword(forgotPasswordDto);
   }
 
+  static async checkResetPassword(token: string): Promise<void> {
+    await UserService.checkResetPassword(token);
+  }
+
   static async resetPassword(
     token: string,
     resetPasswordDto: ResetPasswordDto
