@@ -1,6 +1,6 @@
 {
-  "name": "my-recipes-book-client",
-  "short_name": "my-recipes-book-client",
+  "name": "My Recipes Book",
+  "short_name": "My Recipes Book",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
