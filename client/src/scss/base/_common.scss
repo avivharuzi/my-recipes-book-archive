@@ -2,7 +2,7 @@
   @apply h-full;
 
   a {
-    @apply block h-full w-full p-5 border-b-2 border-white hover:bg-gray-100;
+    @apply block h-full w-full p-5 border-b-2 border-white hover:bg-gray-100 hover:border-gray-100;
 
     &.active {
       @apply border-yellow-500;
