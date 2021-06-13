@@ -1,36 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { DefaultImageDirective } from './directives/default-image.directive';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { LogoComponent } from './components/logo/logo.component';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
-import { OutsideClickDirective } from './directives/outside-click.directive';
-import { ImagePipe } from './pipes/image.pipe';
+
+import { ButtonComponent } from './components/button/button.component';
+import { DefaultImageDirective } from './directives/default-image.directive';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
-import { ButtonComponent } from './components/button/button.component';
+import { ImagePipe } from './pipes/image.pipe';
+import { LogoComponent } from './components/logo/logo.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { OutsideClickDirective } from './directives/outside-click.directive';
+import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 
 @NgModule({
   declarations: [
+    ButtonComponent,
     DefaultImageDirective,
-    NavbarComponent,
-    LogoComponent,
-    UserDropdownComponent,
-    OutsideClickDirective,
-    ImagePipe,
     FormInputComponent,
     FormInputErrorComponent,
-    ButtonComponent,
+    ImagePipe,
+    LogoComponent,
+    NavbarComponent,
+    OutsideClickDirective,
+    UserDropdownComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
     CommonModule,
     DefaultImageDirective,
-    NavbarComponent,
     FormInputComponent,
     FormInputErrorComponent,
+    NavbarComponent,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}

@@ -12,8 +12,6 @@ import { appReducer } from './store/app.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { environment } from '../environments/environment';
-import { SharedModule } from './shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,8 +32,6 @@ import { ReactiveFormsModule } from '@angular/forms';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot(appEffects),
-    SharedModule,
-    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
