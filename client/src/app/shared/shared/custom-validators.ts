@@ -48,10 +48,17 @@ export class CustomValidators {
     };
   }
 
+  static userName(): ValidatorFn {
+    return CustomValidators.pattern(
+      /^([a-z0-9]|[-._](?![-._])).*$/,
+      'Username must to contain only alpha characters, numbers and -._'
+    );
+  }
+
   static password(): ValidatorFn {
     return CustomValidators.pattern(
-      /^[A-Za-z0-9!@#$%^&*()_]{6,20}$/,
-      'Password format is invalid'
+      /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
+      'Password must to contain at least 1 lower case character, 1 uppercase character and 1 number'
     );
   }
 }
