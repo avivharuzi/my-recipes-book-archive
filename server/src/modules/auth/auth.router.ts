@@ -6,6 +6,7 @@ import { withoutAuthenticationMiddleware } from '../../middlewares/without-authe
 
 const authRouter = Router();
 
+authRouter.get('/user', AuthController.user());
 authRouter.post('/logout', authenticationMiddleware, AuthController.logout());
 authRouter.use(withoutAuthenticationMiddleware);
 authRouter.post('/sign-up', AuthController.signUp());

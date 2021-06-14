@@ -8,13 +8,6 @@ import { UserService } from './user.service';
 import { validateUploadedFilesImages } from '../../utils/validate-uploaded-files-images';
 
 export class UserController {
-  static getDetails(): RequestHandler {
-    return expressAsyncHandler(async (_req, res) => {
-      const userPublicDetails = UserService.getPublicDetails(res.locals.user);
-      res.send(userPublicDetails);
-    });
-  }
-
   static updateDetails(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
       const updateUserDto = await transformToClassAndValidate<UpdateUserDto>(

@@ -12,6 +12,16 @@ import { transformToClassAndValidate } from '../../utils/transform-to-class-and-
 import { UserService } from '../users/user.service';
 
 export class AuthController {
+  static user(): RequestHandler {
+    return expressAsyncHandler(async (_req, res) => {
+      if (res.locals.user) {
+        const userPublicDetails = UserService.getPublicDetails(res.locals.user);
+        res.send(userPublicDetails);
+      }
+      return res.send();
+    });
+  }
+
   static signUp(): RequestHandler {
     return expressAsyncHandler(async (req, res) => {
       const createUserDto = await transformToClassAndValidate<CreateUserDto>(
