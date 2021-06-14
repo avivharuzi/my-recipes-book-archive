@@ -3,11 +3,11 @@ export enum MessageType {
   Error = 'error',
 }
 
-export class Message {
+export abstract class Message {
   content: string;
   type: MessageType;
 
-  constructor(content: string, type: MessageType) {
+  protected constructor(content: string, type: MessageType) {
     this.content = content;
     this.type = type;
   }
