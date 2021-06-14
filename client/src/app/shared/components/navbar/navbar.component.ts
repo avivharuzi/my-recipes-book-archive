@@ -15,14 +15,19 @@ import { User } from '../../../auth/shared/user';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
-  @Input() user?: User;
+  @Input() user: User | null;
+  @Input() isLoggedIn: boolean;
+  @Input() isLoggedOut: boolean;
   @Output() logOut: EventEmitter<void>;
 
   showMenu: boolean;
 
   constructor() {
-    this.showMenu = false;
+    this.user = null;
+    this.isLoggedIn = false;
+    this.isLoggedOut = false;
     this.logOut = new EventEmitter<void>();
+    this.showMenu = false;
   }
 
   toggleMenu() {

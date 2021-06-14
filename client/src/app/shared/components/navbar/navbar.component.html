@@ -15,7 +15,7 @@
         </div>
         <a routerLink="/"><app-logo></app-logo></a>
       </div>
-      <ng-container *ngIf="user">
+      <ng-container *ngIf="isLoggedIn">
         <app-user-dropdown (logOut)="logOut.emit()"></app-user-dropdown>
       </ng-container>
     </div>
@@ -36,7 +36,15 @@
         </li>
       </ul>
       <ul class="flex flex-col lg:flex-row lg:items-center">
-        <ng-container *ngIf="user; else noUserTemplate">
+        <ng-container *ngIf="isLoggedOut">
+          <li class="nav-item">
+            <a routerLink="/auth/login" routerLinkActive="active">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/auth/sign-up" routerLinkActive="active">Sign Up</a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn && user">
           <li class="hidden lg:flex relative">
             <app-user-dropdown
               [userName]="user.userName"
@@ -49,14 +57,6 @@
             ></app-user-dropdown>
           </li>
         </ng-container>
-        <ng-template #noUserTemplate>
-          <li class="nav-item">
-            <a routerLink="/auth/login" routerLinkActive="active">Log In</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/auth/sign-up" routerLinkActive="active">Sign Up</a>
-          </li>
-        </ng-template>
       </ul>
     </div>
   </div>
