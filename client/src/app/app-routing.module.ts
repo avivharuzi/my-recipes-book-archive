@@ -31,6 +31,14 @@ const routes: Routes = [
             m => m.RecipesModule
           ),
       },
+      {
+        path: 'collections',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('./features/collections/collections.module').then(
+            m => m.CollectionsModule
+          ),
+      },
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '**', component: NotFoundComponent },
     ],
