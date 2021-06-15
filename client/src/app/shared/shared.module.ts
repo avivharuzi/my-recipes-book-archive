@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { ButtonComponent } from './components/button/button.component';
+import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
@@ -17,6 +18,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
 @NgModule({
   declarations: [
     ButtonComponent,
+    ContainerComponent,
     DefaultImageDirective,
     FormInputComponent,
     FormInputErrorComponent,
@@ -31,6 +33,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
   exports: [
     ButtonComponent,
     CommonModule,
+    ContainerComponent,
     DefaultImageDirective,
     FormInputComponent,
     FormInputErrorComponent,
