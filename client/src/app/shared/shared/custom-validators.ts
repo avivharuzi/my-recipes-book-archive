@@ -18,6 +18,26 @@ export class CustomValidators {
       : null;
   }
 
+  static min(min: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      return Validators.min(min)(control) !== null
+        ? {
+            min: `This field must have equal or greater than ${min}`,
+          }
+        : null;
+    };
+  }
+
+  static max(max: number): ValidatorFn {
+    return (control: AbstractControl) => {
+      return Validators.max(max)(control) !== null
+        ? {
+            max: `This field must have equal or less than ${max}`,
+          }
+        : null;
+    };
+  }
+
   static minLength(minLength: number): ValidatorFn {
     return (control: AbstractControl) => {
       return Validators.minLength(minLength)(control) !== null
