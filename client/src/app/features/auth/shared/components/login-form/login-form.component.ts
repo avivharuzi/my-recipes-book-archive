@@ -4,7 +4,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 import { CustomValidators } from '../../../../../shared/shared/custom-validators';
 import { markAllAsDirty } from '../../../../../shared/shared/mark-all-as-dirty';
@@ -40,6 +40,20 @@ export class LoginFormComponent {
     if (this.loginForm.invalid) {
       return;
     }
-    this.formSubmit.emit(this.loginForm.value);
+
+    const loginFormValue = this.loginForm.value;
+    const body: LoginBody = {
+      password: loginFormValue.password,
+    };
+    if (
+      CustomValidators.email(
+        this.loginForm.get('emailOrUserName') as AbstractControl
+      ) === null
+    ) {
+      body.email = loginFormValue.emailOrUserName;
+    } else {
+      body.userName = loginFormValue.emailOrUserName;
+    }
+    this.formSubmit.emit(body);
   }
 }

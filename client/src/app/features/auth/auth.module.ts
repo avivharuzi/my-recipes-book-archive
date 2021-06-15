@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ForgotPasswordFormComponent } from './shared/components/forgot-password-form/forgot-password-form.component';
@@ -16,6 +17,7 @@ import { VerifyComponent } from './components/verify/verify.component';
 
 @NgModule({
   declarations: [
+    AuthComponent,
     ForgotPasswordComponent,
     ForgotPasswordFormComponent,
     LoginComponent,

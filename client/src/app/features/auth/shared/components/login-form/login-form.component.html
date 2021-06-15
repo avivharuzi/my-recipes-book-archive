@@ -1,1 +1,19 @@
-<p>login-form works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <app-form-input
+    type="text"
+    id="emailOrUserName"
+    placeholder="Email / Username"
+    label="Email / Username"
+    formControlName="emailOrUserName"
+    [control]="loginForm.get('emailOrUserName')"
+  ></app-form-input>
+  <app-form-input
+    type="password"
+    id="password"
+    placeholder="Password"
+    label="Password"
+    formControlName="password"
+    [control]="loginForm.get('password')"
+  ></app-form-input>
+  <app-button class="w-full mt-5" type="submit">Login</app-button>
+</form>
