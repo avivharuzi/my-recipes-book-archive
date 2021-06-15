@@ -1,29 +1,29 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-
 import {
   ErrorMessage,
   Message,
   SuccessMessage,
-} from '../../../shared/shared/message';
+} from '../../../../shared/shared/message';
+
 import { AuthService } from '../../shared/auth.service';
-import { ForgotPasswordBody } from '../../shared/forgot-password-body';
+import { ResendVerificationBody } from '../../shared/resend-verification-body';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss'],
+  selector: 'app-resend-verification',
+  templateUrl: './resend-verification.component.html',
+  styleUrls: ['./resend-verification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForgotPasswordComponent {
+export class ResendVerificationComponent {
   message?: Message;
 
   constructor(private authService: AuthService) {}
 
-  onFormSubmit(body: ForgotPasswordBody): void {
-    this.authService.forgotPassword(body).subscribe(
+  onFormSubmit(body: ResendVerificationBody): void {
+    this.authService.resendVerification(body).subscribe(
       () => {
         this.message = new SuccessMessage(
-          `An email has been sent to ${body.email} with further instructions.`
+          `A verification email has been sent to ${body.email}.`
         );
       },
       error => {

@@ -1,4 +1,4 @@
-import { Image } from '../../shared/shared/image';
+import { Image } from '../../../shared/shared/image';
 
 export interface User {
   id: string;

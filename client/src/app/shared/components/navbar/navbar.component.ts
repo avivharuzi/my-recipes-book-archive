@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 
-import { User } from '../../../auth/shared/user';
+import { User } from '../../../features/auth/shared/user';
 
 @Component({
   selector: 'app-navbar',

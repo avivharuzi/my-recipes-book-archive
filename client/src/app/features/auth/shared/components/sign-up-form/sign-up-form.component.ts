@@ -7,8 +7,8 @@ import {
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AuthService } from '../../auth.service';
-import { CustomValidators } from '../../../../shared/shared/custom-validators';
-import { markAllAsDirty } from '../../../../shared/shared/mark-all-as-dirty';
+import { CustomValidators } from '../../../../../shared/shared/custom-validators';
+import { markAllAsDirty } from '../../../../../shared/shared/mark-all-as-dirty';
 import { SignUpBody } from '../../sign-up-body';
 
 @Component({

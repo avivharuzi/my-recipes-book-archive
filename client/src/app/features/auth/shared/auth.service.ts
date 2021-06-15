@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { ANONYMOUS_USER } from './anonymous-user';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { ForgotPasswordBody } from './forgot-password-body';
 import { LoginBody } from './login.body';
 import { ResendVerificationBody } from './resend-verification-body';

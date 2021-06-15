@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { CustomValidators } from '../../../../shared/shared/custom-validators';
-import { markAllAsDirty } from '../../../../shared/shared/mark-all-as-dirty';
+import { CustomValidators } from '../../../../../shared/shared/custom-validators';
+import { markAllAsDirty } from '../../../../../shared/shared/mark-all-as-dirty';
 import { ForgotPasswordBody } from '../../forgot-password-body';
 
 @Component({

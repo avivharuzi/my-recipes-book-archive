@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ErrorMessage, Message } from '../../../shared/shared/message';
+import { ErrorMessage, Message } from '../../../../shared/shared/message';
 import { AuthService } from '../../shared/auth.service';
 import { LoginBody } from '../../shared/login.body';
 

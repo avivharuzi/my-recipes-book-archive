@@ -4,7 +4,7 @@ import {
   ErrorMessage,
   Message,
   SuccessMessage,
-} from '../../../shared/shared/message';
+} from '../../../../shared/shared/message';
 import { AuthService } from '../../shared/auth.service';
 import { SignUpBody } from '../../shared/sign-up-body';
 

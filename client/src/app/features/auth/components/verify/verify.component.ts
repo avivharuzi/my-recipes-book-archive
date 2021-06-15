@@ -8,7 +8,7 @@ import {
   ErrorMessage,
   Message,
   SuccessMessage,
-} from '../../../shared/shared/message';
+} from '../../../../shared/shared/message';
 
 @Component({
   selector: 'app-verify',
