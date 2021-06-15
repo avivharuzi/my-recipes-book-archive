@@ -8,9 +8,8 @@ describe('ResendVerificationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResendVerificationComponent ]
-    })
-    .compileComponents();
+      declarations: [ResendVerificationComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

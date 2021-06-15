@@ -1,0 +1,12 @@
+<ng-container>
+  <header>
+    <app-navbar
+      [user]="user$ | async"
+      [isLoggedIn]="!!(isLoggedIn$ | async)"
+      [isLoggedOut]="!!(isLoggedOut$ | async)"
+    ></app-navbar>
+  </header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</ng-container>

@@ -40,6 +40,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     NavbarComponent,
     OutsideClickDirective,
     ReactiveFormsModule,
+    RouterModule,
     UserDropdownComponent,
   ],
 })

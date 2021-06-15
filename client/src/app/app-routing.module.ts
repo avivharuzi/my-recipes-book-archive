@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationGuard } from './features/auth/shared/authentication.guard';
+import { CoreComponent } from './core/core.component';
 import { HomeComponent } from './core/components/home/home.component';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { WithoutAuthenticationGuard } from './features/auth/shared/without-authentication.guard';
@@ -9,23 +10,31 @@ import { WithoutAuthenticationGuard } from './features/auth/shared/without-authe
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-    canActivate: [WithoutAuthenticationGuard],
+    component: CoreComponent,
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        canActivate: [WithoutAuthenticationGuard],
+      },
+      {
+        path: 'auth',
+        canActivate: [WithoutAuthenticationGuard],
+        loadChildren: () =>
+          import('./features/auth/auth.module').then(m => m.AuthModule),
+      },
+      {
+        path: 'recipes',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('./features/recipes/recipes.module').then(
+            m => m.RecipesModule
+          ),
+      },
+      { path: '', redirectTo: '', pathMatch: 'full' },
+      { path: '**', component: NotFoundComponent },
+    ],
   },
-  {
-    path: 'auth',
-    canActivate: [WithoutAuthenticationGuard],
-    loadChildren: () =>
-      import('./features/auth/auth.module').then(m => m.AuthModule),
-  },
-  {
-    path: 'recipes',
-    canActivate: [AuthenticationGuard],
-    loadChildren: () =>
-      import('./features/recipes/recipes.module').then(m => m.RecipesModule),
-  },
-  { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
