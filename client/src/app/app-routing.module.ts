@@ -39,6 +39,14 @@ const routes: Routes = [
             m => m.CollectionsModule
           ),
       },
+      {
+        path: 'settings',
+        canActivate: [AuthenticationGuard],
+        loadChildren: () =>
+          import('./features/settings/settings.module').then(
+            m => m.SettingsModule
+          ),
+      },
       { path: '', redirectTo: '', pathMatch: 'full' },
       { path: '**', component: NotFoundComponent },
     ],
