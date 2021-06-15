@@ -4,6 +4,7 @@
       [user]="user$ | async"
       [isLoggedIn]="!!(isLoggedIn$ | async)"
       [isLoggedOut]="!!(isLoggedOut$ | async)"
+      (logOut)="onLogout()"
     ></app-navbar>
   </header>
   <main>
