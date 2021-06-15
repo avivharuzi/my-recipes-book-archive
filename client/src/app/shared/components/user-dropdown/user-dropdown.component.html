@@ -5,7 +5,7 @@
       width="35"
       height="35"
       alt="Profile Image"
-      appDefaultImage=""
+      appDefaultImage="assets/images/defaults/default-profile.jpg"
       [src]="profileImg"
     />
   </button>
@@ -32,7 +32,17 @@
         <span class="font-bold">{{ userName }}</span>
       </div>
     </li>
-    <li class="nav-item"><a routerLink="/settings">Settings</a></li>
-    <li class="nav-item"><a (click)="logOut.emit()">Log Out</a></li>
+    <li class="nav-item">
+      <a (click)="isDropdownMenuOpen = false" routerLink="/settings"
+        >Settings</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="cursor-pointer"
+        (click)="isDropdownMenuOpen = false; logOut.emit()"
+        >Log Out</a
+      >
+    </li>
   </ul>
 </div>

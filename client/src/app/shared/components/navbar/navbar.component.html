@@ -15,9 +15,7 @@
         </div>
         <a routerLink="/"><app-logo></app-logo></a>
       </div>
-      <ng-container *ngIf="isLoggedIn">
-        <app-user-dropdown (logOut)="logOut.emit()"></app-user-dropdown>
-      </ng-container>
+      <ng-container *ngTemplateOutlet="userDropdownTemplate"></ng-container>
     </div>
     <!-- Main Menu -->
     <div
@@ -48,20 +46,20 @@
             <a routerLink="/auth/sign-up" routerLinkActive="active">Sign Up</a>
           </li>
         </ng-container>
-        <ng-container *ngIf="isLoggedIn && user">
-          <li class="hidden lg:flex relative">
-            <app-user-dropdown
-              [userName]="user.userName"
-              [profileImg]="
-                user.profileImage
-                  ? (user.profileImage | image: 'thumbnail')
-                  : ''
-              "
-              (logOut)="logOut.emit()"
-            ></app-user-dropdown>
-          </li>
-        </ng-container>
+        <ng-container *ngTemplateOutlet="userDropdownTemplate"></ng-container>
       </ul>
     </div>
   </div>
 </div>
+
+<ng-template #userDropdownTemplate>
+  <ng-container *ngIf="isLoggedIn && user">
+    <app-user-dropdown
+      [userName]="user.userName"
+      [profileImg]="
+        user.profileImage ? (user.profileImage | image: 'thumbnail') : ''
+      "
+      (logOut)="logOut.emit()"
+    ></app-user-dropdown>
+  </ng-container>
+</ng-template>
