@@ -7,7 +7,11 @@ import { NotFoundComponent } from './core/components/not-found/not-found.compone
 import { WithoutAuthenticationGuard } from './features/auth/shared/without-authentication.guard';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    canActivate: [WithoutAuthenticationGuard],
+  },
   {
     path: 'auth',
     canActivate: [WithoutAuthenticationGuard],
