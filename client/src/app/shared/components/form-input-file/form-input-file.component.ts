@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'app-form-input-file',
   templateUrl: './form-input-file.component.html',
-  styleUrls: ['./form-input-file.component.css'],
+  styleUrls: ['./form-input-file.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,7 +20,9 @@ export class FormInputFileComponent implements ControlValueAccessor, OnInit {
   value: File[];
 
   constructor() {
+    this.multiple = false;
     this.label = 'Choose file';
+    this.value = [];
   }
 
   ngOnInit(): void {
@@ -28,7 +30,8 @@ export class FormInputFileComponent implements ControlValueAccessor, OnInit {
   }
 
   onFileChange(event: Event): void {
-    const fileList: FileList = (event.target as HTMLInputElement).files;
+    const fileList: FileList = (event.target as HTMLInputElement)
+      .files as FileList;
     if (!fileList || fileList.length === 0) {
       this.onChange(event, []);
       return;
@@ -36,7 +39,7 @@ export class FormInputFileComponent implements ControlValueAccessor, OnInit {
 
     const files: File[] = [];
     for (let i = 0; i < fileList.length; i++) {
-      files.push(fileList.item(i));
+      files.push(fileList.item(i) as File);
     }
     this.onChange(event, files);
   }
