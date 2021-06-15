@@ -6,7 +6,7 @@ export const getCommonImageValidators = (
   maxFiles: number = 1
 ): ValidatorFn[] => {
   return [
-    CustomValidators.maxFiles(1),
+    CustomValidators.maxFiles(maxFiles),
     CustomValidators.maxFileSize('10MB'),
     CustomValidators.allowedFileExtensions(['jpg', 'jpeg', 'png', 'gif']),
     CustomValidators.allowedMimetypes([
