@@ -79,24 +79,24 @@ export class AuthService {
   login(body: LoginBody): Observable<User> {
     return this.httpClient
       .post<User>(`${this.baseAuthApiUrl}/login`, body)
-      .pipe(tap(user => this.userSubject.next(user)));
+      .pipe(tap(user => this.setUser(user)));
   }
 
   logout(): Observable<void> {
     return this.httpClient
       .post<void>(`${this.baseAuthApiUrl}/logout`, {})
-      .pipe(tap(() => this.userSubject.next(ANONYMOUS_USER)));
+      .pipe(tap(() => this.setUser(ANONYMOUS_USER)));
+  }
+
+  setUser(user: User): void {
+    this.userSubject.next(user);
   }
 
   private initUser(): Observable<User | void> {
     return this.httpClient.get<User | void>(`${this.baseAuthApiUrl}/user`).pipe(
-      tap(user =>
-        user
-          ? this.userSubject.next(user)
-          : this.userSubject.next(ANONYMOUS_USER)
-      ),
+      tap(user => (user ? this.setUser(user) : this.setUser(ANONYMOUS_USER))),
       catchError(error => {
-        this.userSubject.next(ANONYMOUS_USER);
+        this.setUser(ANONYMOUS_USER);
         throw error;
       })
     );
