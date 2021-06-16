@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { User } from '../features/auth/shared/user';
   selector: 'app-core',
   templateUrl: './core.component.html',
   styleUrls: ['./core.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoreComponent {
   user$: Observable<User | null>;
