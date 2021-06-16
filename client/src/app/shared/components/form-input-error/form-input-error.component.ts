@@ -1,16 +1,10 @@
-import {
-  AfterContentChecked,
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-} from '@angular/core';
+import { AfterContentChecked, Component, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-input-error',
   templateUrl: './form-input-error.component.html',
   styleUrls: ['./form-input-error.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormInputErrorComponent implements AfterContentChecked {
   @Input() isMulti: boolean;
