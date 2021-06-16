@@ -85,18 +85,22 @@ export class AuthService {
   logout(): Observable<void> {
     return this.httpClient
       .post<void>(`${this.baseAuthApiUrl}/logout`, {})
-      .pipe(tap(() => this.setUser(ANONYMOUS_USER)));
+      .pipe(tap(() => this.setAnonymousUser()));
   }
 
   setUser(user: User): void {
     this.userSubject.next(user);
   }
 
+  setAnonymousUser(): void {
+    this.setUser(ANONYMOUS_USER);
+  }
+
   private initUser(): Observable<User | void> {
     return this.httpClient.get<User | void>(`${this.baseAuthApiUrl}/user`).pipe(
-      tap(user => (user ? this.setUser(user) : this.setUser(ANONYMOUS_USER))),
+      tap(user => (user ? this.setUser(user) : this.setAnonymousUser())),
       catchError(error => {
-        this.setUser(ANONYMOUS_USER);
+        this.setAnonymousUser();
         throw error;
       })
     );
