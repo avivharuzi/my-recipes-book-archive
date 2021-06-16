@@ -1,6 +1,10 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="loginForm"
+  (ngSubmit)="onSubmit()"
+>
   <app-form-input
-    type="text"
     id="emailOrUserName"
     placeholder="Email / Username"
     label="Email / Username"

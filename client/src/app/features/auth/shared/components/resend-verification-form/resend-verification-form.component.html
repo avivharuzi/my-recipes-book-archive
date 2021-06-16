@@ -1,1 +1,16 @@
-<p>resend-verification-form works!</p>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="resendVerificationForm"
+  (ngSubmit)="onSubmit()"
+>
+  <app-form-input
+    type="email"
+    id="email"
+    placeholder="Email"
+    label="Email"
+    formControlName="email"
+    [control]="resendVerificationForm.get('email')"
+  ></app-form-input>
+  <app-button class="w-full mt-5" type="submit">Resend Verification</app-button>
+</form>

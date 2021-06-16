@@ -1,1 +1,45 @@
-<p>sign-up-form works!</p>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="signUpForm"
+  (ngSubmit)="onSubmit()"
+>
+  <app-form-input
+    id="firstName"
+    placeholder="First Name"
+    label="First Name"
+    formControlName="firstName"
+    [control]="signUpForm.get('firstName')"
+  ></app-form-input>
+  <app-form-input
+    id="lastName"
+    placeholder="Last Name"
+    label="Last Name"
+    formControlName="lastName"
+    [control]="signUpForm.get('lastName')"
+  ></app-form-input>
+  <app-form-input
+    type="email"
+    id="email"
+    placeholder="Email"
+    label="Email"
+    formControlName="email"
+    [control]="signUpForm.get('email')"
+  ></app-form-input>
+  <app-form-input
+    id="userName"
+    placeholder="User Name"
+    label="User Name"
+    formControlName="userName"
+    [control]="signUpForm.get('userName')"
+  ></app-form-input>
+  <app-form-input
+    type="password"
+    id="password"
+    placeholder="Password"
+    label="Password"
+    formControlName="password"
+    [control]="signUpForm.get('password')"
+  ></app-form-input>
+  <app-button class="w-full mt-5" type="submit">Login</app-button>
+</form>
