@@ -24,7 +24,7 @@ export class UnauthorizedInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError(error => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
-          const authService = this.injector.get(AuthService);
+          const authService = this.injector.get<AuthService>(AuthService);
           authService.setUser(ANONYMOUS_USER);
           this.router.navigate(['/auth/login']).then();
         }
