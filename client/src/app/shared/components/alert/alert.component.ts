@@ -10,6 +10,11 @@ import { Message, MessageType } from '../../shared/message';
 })
 export class AlertComponent {
   @Input() message?: Message | null;
+  @Input() isDismissible: boolean;
 
   MessageType = MessageType;
+
+  constructor() {
+    this.isDismissible = true;
+  }
 }

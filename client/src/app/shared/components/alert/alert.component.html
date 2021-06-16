@@ -11,6 +11,7 @@
     </p>
     <span
       class="flex cursor-pointer material-icons ml-8"
+      *ngIf="isDismissible"
       (click)="message = null"
       >close</span
     >
