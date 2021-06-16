@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
@@ -17,6 +18,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
 
 @NgModule({
   declarations: [
+    AlertComponent,
     ButtonComponent,
     ContainerComponent,
     DefaultImageDirective,
@@ -31,6 +33,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
+    AlertComponent,
     ButtonComponent,
     CommonModule,
     ContainerComponent,
