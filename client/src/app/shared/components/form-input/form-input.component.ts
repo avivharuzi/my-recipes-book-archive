@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+} from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -16,6 +22,7 @@ import {
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormInputComponent implements ControlValueAccessor, AfterViewInit {
   @Input() type: string;

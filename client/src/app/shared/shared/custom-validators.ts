@@ -117,7 +117,7 @@ export class CustomValidators {
         const fileSize = file.size;
         const minFileSizeInBytes = bytes.parse(minFileSize);
         if (fileSize < minFileSizeInBytes) {
-          const fileSizeFormatted = bytes.format(file.size);
+          const fileSizeFormatted = bytes.format(fileSize);
           const minFileSizeFormatted = bytes.format(minFileSizeInBytes);
           return {
             minFileSize: `Minimum expected size for file ${file.name} is ${minFileSizeFormatted} but ${fileSizeFormatted} detected`,
@@ -138,7 +138,7 @@ export class CustomValidators {
         const fileSize = file.size;
         const maxFileSizeInBytes = bytes.parse(maxFileSize);
         if (fileSize > maxFileSizeInBytes) {
-          const fileSizeFormatted = bytes.format(file.size);
+          const fileSizeFormatted = bytes.format(fileSize);
           const maxFileSizeFormatted = bytes.format(maxFileSizeInBytes);
           return {
             maxFileSize: `Maximum allowed size for file ${file.name} is ${maxFileSizeFormatted} but ${fileSizeFormatted} detected`,

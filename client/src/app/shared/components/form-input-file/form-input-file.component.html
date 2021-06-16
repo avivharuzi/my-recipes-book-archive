@@ -1,25 +1,27 @@
-<div>
-  <label
-    class="
-      flex flex-col
-      items-center
-      px-4
-      py-3
-      text-lg text-white
-      bg-yellow-600
-      hover:bg-yellow-700
-      rounded-md
-      focus:outline-none
-      focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500
-      cursor-pointer
-    "
-  >
-    <span>{{ label }}</span>
-    <input
-      type="file"
-      class="hidden"
-      [multiple]="multiple"
-      (change)="onFileChange($event)"
-    />
-  </label>
-</div>
+<ng-container>
+  <div>
+    <label
+      class="
+        flex flex-col
+        items-center
+        px-4
+        py-3
+        text-lg text-white
+        bg-yellow-600
+        hover:bg-yellow-700
+        rounded-md
+        focus:outline-none
+        cursor-pointer
+      "
+    >
+      <span>{{ label }}</span>
+      <input
+        type="file"
+        class="hidden"
+        [multiple]="multiple"
+        (change)="onFileChange($event)"
+      />
+    </label>
+  </div>
+  <app-form-input-error [control]="control"></app-form-input-error>
+</ng-container>

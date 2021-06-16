@@ -1,5 +1,15 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  Input,
+  OnInit,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-form-input-file',
@@ -12,15 +22,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormInputFileComponent implements ControlValueAccessor, OnInit {
   @Input() multiple: boolean;
+  @Input() control: AbstractControl | null;
 
   label: string;
   value: File[];
 
   constructor() {
     this.multiple = false;
+    this.control = null;
     this.label = 'Choose file';
     this.value = [];
   }
