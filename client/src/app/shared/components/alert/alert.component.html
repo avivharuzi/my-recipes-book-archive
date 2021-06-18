@@ -1,6 +1,6 @@
 <ng-container *ngIf="message">
   <div
-    class="flex justify-between items-start p-3 rounded-md"
+    class="flex justify-between items-start p-3 mb-6 rounded-md"
     [ngClass]="{
       'bg-green-50 text-green-700': message.type === MessageType.Success,
       'bg-red-50 text-red-700': message.type === MessageType.Error
