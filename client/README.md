@@ -93,19 +93,3 @@ Analyze project.
 ```bash
 npm run analyze
 ```
-
-## Using Docker in Production
-
-Run docker for production.
-
-```bash
-docker-compose -f docker-compose-prod.yml up --build
-```
-
-Run docker for production with Angular Universal (SSR).
-
-```bash
-docker-compose -f docker-compose-ssr.yml up --build
-```
-
-> NOTE: There are many ways to use Docker files in production environment please be careful with the way you are using it.
