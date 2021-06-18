@@ -1,1 +1,9 @@
-<p>profile works!</p>
+<app-loader [isLoading]="isLoading">
+  <app-alert [message]="message$ | async"></app-alert>
+  <ng-container *ngIf="user$ | async as user">
+    <app-profile-form
+      [user]="user"
+      (formSubmit)="onFormSubmit($event)"
+    ></app-profile-form>
+  </ng-container>
+</app-loader>

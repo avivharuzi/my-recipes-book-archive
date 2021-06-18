@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { CustomValidators } from '../../../../../shared/shared/custom-validators';
 import { getCommonImageValidators } from '../../../../../shared/shared/get-common-image-validators';
@@ -24,6 +24,7 @@ export class ProfileFormComponent implements OnInit {
   @Output() formSubmit: EventEmitter<FormData>;
 
   profileForm: FormGroup;
+  profileImagePreview: string | null;
 
   constructor(private formBuilder: FormBuilder) {
     this.formSubmit = new EventEmitter<FormData>();
@@ -38,10 +39,22 @@ export class ProfileFormComponent implements OnInit {
       ],
       profileImage: [[], [...getCommonImageValidators()]],
     });
+    this.profileImagePreview = null;
   }
 
   ngOnInit(): void {
     this.fillProfileForm();
+    this.profileImageFormControl.valueChanges.subscribe(value => {
+      if (value && value.length > 0 && this.profileImageFormControl.valid) {
+        this.profileImagePreview = URL.createObjectURL(value[0]);
+      } else {
+        this.profileImagePreview = null;
+      }
+    });
+  }
+
+  get profileImageFormControl(): FormControl {
+    return this.profileForm.get('profileImage') as FormControl;
   }
 
   onSubmit(): void {
@@ -57,8 +70,8 @@ export class ProfileFormComponent implements OnInit {
       profileFormValue.profileImage.length > 0
     ) {
       formData.set('profileImage', profileFormValue.profileImage[0]);
-      delete profileFormValue.profileImage;
     }
+    delete profileFormValue.profileImage;
     formData.set('data', JSON.stringify(profileFormValue));
 
     this.formSubmit.emit(formData);

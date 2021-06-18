@@ -1,1 +1,40 @@
-<p>profile-form works!</p>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="profileForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="mb-8">
+    <div class="mb-4 flex justify-center">
+      <img
+        class="profileImage object-cover rounded-full"
+        alt="Profile Image"
+        appDefaultImage="assets/images/defaults/default-profile.jpg"
+        [src]="
+          profileImagePreview ||
+            (user.profileImage ? (user.profileImage | image) : '') | safeUrl
+        "
+      />
+    </div>
+    <app-form-input-file
+      formControlName="profileImage"
+      [multiple]="false"
+      [control]="profileForm.get('profileImage')"
+    ></app-form-input-file>
+  </div>
+  <app-form-input
+    id="firstName"
+    placeholder="First Name"
+    label="First Name"
+    formControlName="firstName"
+    [control]="profileForm.get('firstName')"
+  ></app-form-input>
+  <app-form-input
+    id="lastName"
+    placeholder="Last Name"
+    label="Last Name"
+    formControlName="lastName"
+    [control]="profileForm.get('lastName')"
+  ></app-form-input>
+  <app-button class="w-full mt-4" type="submit">Update Profile</app-button>
+</form>
