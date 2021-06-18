@@ -1,14 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
-import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, mergeMap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 import { AuthService } from '../../shared/auth.service';
-import {
-  ErrorMessage,
-  Message,
-  SuccessMessage,
-} from '../../../../shared/shared/message';
+import { errorMessageOperator } from '../../../../shared/shared/error-message-operator';
+import { Message, SuccessMessage } from '../../../../shared/shared/message';
 import { ResetPasswordBody } from '../../shared/reset-password-body';
 
 @Component({
@@ -20,22 +17,27 @@ import { ResetPasswordBody } from '../../shared/reset-password-body';
 export class ResetPasswordComponent {
   isAllowedToResetPassword$: Observable<boolean>;
   token: string | null;
-  message?: Message;
+  message$: Subject<Message>;
+  isFirstError: boolean;
+  isResetPasswordSuccessfully: boolean;
 
   constructor(
     private authService: AuthService,
     private activatedRoute: ActivatedRoute
   ) {
     this.token = null;
+    this.message$ = new Subject<Message>();
+    this.isFirstError = false;
+    this.isResetPasswordSuccessfully = false;
     this.isAllowedToResetPassword$ = this.activatedRoute.paramMap.pipe(
       mergeMap(params => {
         this.token = params.get('token');
         return this.authService.checkResetPassword(this.token || '');
       }),
       map(() => true),
-      catchError(error => {
-        this.message = new ErrorMessage(error.message);
-        throw error;
+      errorMessageOperator(message => {
+        this.message$.next(message);
+        this.isFirstError = true;
       })
     );
   }
@@ -44,15 +46,14 @@ export class ResetPasswordComponent {
     if (!this.token) {
       return;
     }
-    this.authService.resetPassword(this.token, body).subscribe(
-      () => {
-        this.message = new SuccessMessage(
-          'Your password has been changed successfully.'
+    this.authService
+      .resetPassword(this.token, body)
+      .pipe(errorMessageOperator(message => this.message$.next(message)))
+      .subscribe(() => {
+        this.message$.next(
+          new SuccessMessage('Your password has been changed successfully.')
         );
-      },
-      error => {
-        this.message = new ErrorMessage(error.message);
-      }
-    );
+        this.isResetPasswordSuccessfully = true;
+      });
   }
 }
