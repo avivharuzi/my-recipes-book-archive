@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { map, mergeMap } from 'rxjs/operators';
+import { finalize, map, mergeMap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
 import { AuthService } from '../../shared/auth.service';
@@ -20,6 +20,7 @@ export class ResetPasswordComponent {
   message$: Subject<Message>;
   isFirstError: boolean;
   isResetPasswordSuccessfully: boolean;
+  isLoading: boolean;
 
   constructor(
     private authService: AuthService,
@@ -29,6 +30,7 @@ export class ResetPasswordComponent {
     this.message$ = new Subject<Message>();
     this.isFirstError = false;
     this.isResetPasswordSuccessfully = false;
+    this.isLoading = false;
     this.isAllowedToResetPassword$ = this.activatedRoute.paramMap.pipe(
       mergeMap(params => {
         this.token = params.get('token');
@@ -46,9 +48,13 @@ export class ResetPasswordComponent {
     if (!this.token) {
       return;
     }
+    this.isLoading = true;
     this.authService
       .resetPassword(this.token, body)
-      .pipe(errorMessageOperator(message => this.message$.next(message)))
+      .pipe(
+        errorMessageOperator(message => this.message$.next(message)),
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe(() => {
         this.message$.next(
           new SuccessMessage('Your password has been changed successfully.')

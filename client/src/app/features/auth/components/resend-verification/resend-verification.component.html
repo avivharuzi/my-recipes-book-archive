@@ -1,4 +1,4 @@
-<ng-container>
+<app-loader [isLoading]="isLoading">
   <app-alert
     [message]="message$ | async"
     [isDismissible]="!isResendVerificationSuccessfully"
@@ -8,4 +8,4 @@
       (submitForm)="onFormSubmit($event)"
     ></app-resend-verification-form>
   </ng-container>
-</ng-container>
+</app-loader>

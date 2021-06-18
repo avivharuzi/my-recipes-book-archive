@@ -1,4 +1,4 @@
-<ng-container>
+<app-loader [isLoading]="isLoading">
   <app-alert [message]="message$ | async"></app-alert>
   <app-login-form (formSubmit)="onFormSubmit($event)"></app-login-form>
-</ng-container>
+</app-loader>

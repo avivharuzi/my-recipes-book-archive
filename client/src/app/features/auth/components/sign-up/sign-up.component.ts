@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { AuthService } from '../../shared/auth.service';
@@ -15,16 +16,22 @@ import { SignUpBody } from '../../shared/sign-up-body';
 export class SignUpComponent {
   isSignUpSuccessfully: boolean;
   message$: Subject<Message>;
+  isLoading: boolean;
 
   constructor(private authService: AuthService) {
     this.isSignUpSuccessfully = false;
     this.message$ = new Subject<Message>();
+    this.isLoading = false;
   }
 
   onFormSubmit(body: SignUpBody): void {
+    this.isLoading = true;
     this.authService
       .signUp(body)
-      .pipe(errorMessageOperator(message => this.message$.next(message)))
+      .pipe(
+        errorMessageOperator(message => this.message$.next(message)),
+        finalize(() => (this.isLoading = false))
+      )
       .subscribe(() => {
         this.message$.next(
           new SuccessMessage(

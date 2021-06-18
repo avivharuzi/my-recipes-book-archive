@@ -1,4 +1,4 @@
-<ng-container>
+<app-loader [isLoading]="isLoading">
   <app-alert
     [message]="message$ | async"
     [isDismissible]="!isSignUpSuccessfully"
@@ -6,4 +6,4 @@
   <ng-container *ngIf="!isSignUpSuccessfully">
     <app-sign-up-form (formSubmit)="onFormSubmit($event)"></app-sign-up-form>
   </ng-container>
-</ng-container>
+</app-loader>
