@@ -15,6 +15,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     LogoComponent,
     NavbarComponent,
     OutsideClickDirective,
+    SafeUrlPipe,
     UserDropdownComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
@@ -50,6 +52,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     OutsideClickDirective,
     ReactiveFormsModule,
     RouterModule,
+    SafeUrlPipe,
     UserDropdownComponent,
   ],
 })
