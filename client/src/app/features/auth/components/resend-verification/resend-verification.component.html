@@ -1,1 +1,11 @@
-<p>resend-verification works!</p>
+<ng-container>
+  <app-alert
+    [message]="message$ | async"
+    [isDismissible]="!isResendVerificationSuccessfully"
+  ></app-alert>
+  <ng-container *ngIf="!isResendVerificationSuccessfully">
+    <app-resend-verification-form
+      (submitForm)="onFormSubmit($event)"
+    ></app-resend-verification-form>
+  </ng-container>
+</ng-container>
