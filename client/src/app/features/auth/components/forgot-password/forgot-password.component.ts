@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
-import {
-  ErrorMessage,
-  Message,
-  SuccessMessage,
-} from '../../../../shared/shared/message';
 import { AuthService } from '../../shared/auth.service';
+import { errorMessageOperator } from '../../../../shared/shared/error-message-operator';
 import { ForgotPasswordBody } from '../../shared/forgot-password-body';
+import { Message, SuccessMessage } from '../../../../shared/shared/message';
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,20 +13,25 @@ import { ForgotPasswordBody } from '../../shared/forgot-password-body';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordComponent {
-  message?: Message;
+  isForgotPasswordSuccessfully: boolean;
+  message$: Subject<Message>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.isForgotPasswordSuccessfully = false;
+    this.message$ = new Subject<Message>();
+  }
 
   onFormSubmit(body: ForgotPasswordBody): void {
-    this.authService.forgotPassword(body).subscribe(
-      () => {
-        this.message = new SuccessMessage(
-          `An email has been sent to ${body.email} with further instructions.`
+    this.authService
+      .forgotPassword(body)
+      .pipe(errorMessageOperator(message => this.message$.next(message)))
+      .subscribe(() => {
+        this.message$.next(
+          new SuccessMessage(
+            `An email has been sent to ${body.email} with further instructions.`
+          )
         );
-      },
-      error => {
-        this.message = new ErrorMessage(error.message);
-      }
-    );
+        this.isForgotPasswordSuccessfully = true;
+      });
   }
 }
