@@ -46,7 +46,9 @@
             <a routerLink="/auth/sign-up" routerLinkActive="active">Sign Up</a>
           </li>
         </ng-container>
-        <ng-container *ngTemplateOutlet="userDropdownTemplate"></ng-container>
+        <li class="hidden lg:block">
+          <ng-container *ngTemplateOutlet="userDropdownTemplate"></ng-container>
+        </li>
       </ul>
     </div>
   </div>

@@ -30,7 +30,7 @@ export class NavbarComponent {
     this.showMenu = false;
   }
 
-  toggleMenu() {
+  toggleMenu(): void {
     this.showMenu = !this.showMenu;
   }
 }
