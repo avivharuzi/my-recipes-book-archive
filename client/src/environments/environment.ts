@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  defaultImagePath: 'assets/images/defaults/default-image.png',
+  defaultImagePath: 'assets/images/defaults/default-image.jpg',
   baseApiUrl: '/api',
   baseImagesApiUrl: 'https://myrecipesbook.s3.eu-central-1.amazonaws.com',
 };
