@@ -11,6 +11,7 @@ import { FormInputComponent } from './components/form-input/form-input.component
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
 import { FormInputFileComponent } from './components/form-input-file/form-input-file.component';
 import { ImagePipe } from './pipes/image.pipe';
+import { LoaderComponent } from './components/loader/loader.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
@@ -26,6 +27,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     FormInputErrorComponent,
     FormInputFileComponent,
     ImagePipe,
+    LoaderComponent,
     LogoComponent,
     NavbarComponent,
     OutsideClickDirective,
@@ -42,6 +44,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     FormInputErrorComponent,
     FormInputFileComponent,
     ImagePipe,
+    LoaderComponent,
     LogoComponent,
     NavbarComponent,
     OutsideClickDirective,

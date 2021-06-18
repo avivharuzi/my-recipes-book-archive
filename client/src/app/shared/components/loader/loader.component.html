@@ -1,0 +1,28 @@
+<div
+  *ngIf="isLoading"
+  class="
+    absolute
+    top-0
+    left-0
+    w-full
+    h-full
+    bg-white bg-opacity-75
+    cursor-default
+    z-10
+  "
+>
+  <div
+    class="
+      loader
+      m-0
+      absolute
+      top-1/2
+      left-1/2
+      transform
+      -translate-x-1/2 -translate-y-1/2
+      z-20
+    "
+  >
+    <img alt="loader" [src]="imgSrc" [width]="size" [height]="size" />
+  </div>
+</div>
