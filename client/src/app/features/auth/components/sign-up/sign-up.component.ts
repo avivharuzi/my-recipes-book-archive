@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Subject } from 'rxjs';
 
-import {
-  ErrorMessage,
-  Message,
-  SuccessMessage,
-} from '../../../../shared/shared/message';
 import { AuthService } from '../../shared/auth.service';
+import { errorMessageOperator } from '../../../../shared/shared/error-message-operator';
+import { Message, SuccessMessage } from '../../../../shared/shared/message';
 import { SignUpBody } from '../../shared/sign-up-body';
 
 @Component({
@@ -15,20 +13,25 @@ import { SignUpBody } from '../../shared/sign-up-body';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignUpComponent {
-  message?: Message;
+  isSignUpSuccessfully: boolean;
+  message$: Subject<Message>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    this.isSignUpSuccessfully = false;
+    this.message$ = new Subject<Message>();
+  }
 
   onFormSubmit(body: SignUpBody): void {
-    this.authService.signUp(body).subscribe(
-      () => {
-        this.message = new SuccessMessage(
-          `Account created successfully. A verification email has been sent to ${body.email}.`
+    this.authService
+      .signUp(body)
+      .pipe(errorMessageOperator(message => this.message$.next(message)))
+      .subscribe(() => {
+        this.message$.next(
+          new SuccessMessage(
+            `Account created successfully. A verification email has been sent to ${body.email}.`
+          )
         );
-      },
-      error => {
-        this.message = new ErrorMessage(error);
-      }
-    );
+        this.isSignUpSuccessfully = true;
+      });
   }
 }

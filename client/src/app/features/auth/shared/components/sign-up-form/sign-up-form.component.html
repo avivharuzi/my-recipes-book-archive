@@ -41,5 +41,9 @@
     formControlName="password"
     [control]="signUpForm.get('password')"
   ></app-form-input>
-  <app-button class="w-full mt-5" type="submit">Login</app-button>
+  <app-button class="w-full mt-4" type="submit">Sign Up</app-button>
+  <p class="text-center mt-8">
+    Already have an account?
+    <a class="link" routerLink="/auth/login">Log In</a>
+  </p>
 </form>

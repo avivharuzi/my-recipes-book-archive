@@ -1,1 +1,9 @@
-<p>sign-up works!</p>
+<ng-container>
+  <app-alert
+    [message]="message$ | async"
+    [isDismissible]="!isSignUpSuccessfully"
+  ></app-alert>
+  <ng-container *ngIf="!isSignUpSuccessfully">
+    <app-sign-up-form (formSubmit)="onFormSubmit($event)"></app-sign-up-form>
+  </ng-container>
+</ng-container>

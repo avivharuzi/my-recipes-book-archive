@@ -50,7 +50,7 @@ export class SignUpFormComponent {
           CustomValidators.required,
           CustomValidators.minLength(4),
           CustomValidators.maxLength(20),
-          CustomValidators.userName,
+          CustomValidators.userName(),
         ],
       ],
       password: [
@@ -59,7 +59,7 @@ export class SignUpFormComponent {
           CustomValidators.required,
           CustomValidators.minLength(8),
           CustomValidators.maxLength(20),
-          CustomValidators.password,
+          CustomValidators.password(),
         ],
       ],
     });
