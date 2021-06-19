@@ -7,6 +7,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
+import { FooterComponent } from './components/footer/footer.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
 import { FormInputFileComponent } from './components/form-input-file/form-input-file.component';
@@ -25,6 +26,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ButtonComponent,
     ContainerComponent,
     DefaultImageDirective,
+    FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,
     FormInputFileComponent,
@@ -44,6 +46,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     CommonModule,
     ContainerComponent,
     DefaultImageDirective,
+    FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,
     FormInputFileComponent,
