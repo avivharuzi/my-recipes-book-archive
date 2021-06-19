@@ -1,1 +1,9 @@
-<p>recipe-edit works!</p>
+<ng-container *ngIf="recipe$ | async as recipe">
+  <app-loader [isLoading]="isLoading">
+    <app-alert [message]="message$ | async"></app-alert>
+    <app-recipe-form
+      [recipe]="recipe"
+      (formSubmit)="onFormSubmit(recipe._id, $event)"
+    ></app-recipe-form>
+  </app-loader>
+</ng-container>

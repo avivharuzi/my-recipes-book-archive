@@ -99,7 +99,7 @@ export class RecipeFormComponent implements OnInit {
     if (!this.recipe) {
       return;
     }
-    this.recipeForm.setValue({
+    this.recipeForm.patchValue({
       title: this.recipe.title,
       description: this.recipe.description,
       ingredients: this.recipe.ingredients.join('\r\n'),
