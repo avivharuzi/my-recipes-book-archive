@@ -7,6 +7,7 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
+import { CheckListComponent } from './components/check-list/check-list.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { DirectionListComponent } from './components/direction-list/direction-list.component';
@@ -29,6 +30,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     AlertComponent,
     ButtonComponent,
     CardComponent,
+    CheckListComponent,
     ContainerComponent,
     DefaultImageDirective,
     DirectionListComponent,
@@ -51,6 +53,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     AlertComponent,
     ButtonComponent,
     CardComponent,
+    CheckListComponent,
     CommonModule,
     ContainerComponent,
     DefaultImageDirective,
@@ -69,6 +72,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     RouterModule,
     SafeUrlPipe,
     UserDropdownComponent,
+    CheckListComponent,
   ],
 })
 export class SharedModule {}
