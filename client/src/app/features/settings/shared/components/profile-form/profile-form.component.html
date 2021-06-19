@@ -22,19 +22,21 @@
       [control]="profileForm.get('profileImage')"
     ></app-form-input-file>
   </div>
-  <app-form-input
-    id="firstName"
-    placeholder="First Name"
-    label="First Name"
-    formControlName="firstName"
-    [control]="profileForm.get('firstName')"
-  ></app-form-input>
-  <app-form-input
-    id="lastName"
-    placeholder="Last Name"
-    label="Last Name"
-    formControlName="lastName"
-    [control]="profileForm.get('lastName')"
-  ></app-form-input>
-  <app-button class="w-full mt-4" type="submit">Update Profile</app-button>
+  <div class="flex flex-col space-y-4">
+    <app-form-input
+      id="firstName"
+      placeholder="First Name"
+      label="First Name"
+      formControlName="firstName"
+      [control]="profileForm.get('firstName')"
+    ></app-form-input>
+    <app-form-input
+      id="lastName"
+      placeholder="Last Name"
+      label="Last Name"
+      formControlName="lastName"
+      [control]="profileForm.get('lastName')"
+    ></app-form-input>
+  </div>
+  <app-button class="block w-full mt-6">Update Profile</app-button>
 </form>
