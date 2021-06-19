@@ -18,10 +18,14 @@
     #textarea
     [id]="id"
     [placeholder]="placeholder"
+    [attr.aria-describedby]="describedby"
     (input)="onChange($event, textarea.value)"
     >{{ value }}</textarea
   >
   <ng-container *ngIf="control">
     <app-form-input-error [control]="control"></app-form-input-error>
   </ng-container>
+  <div *ngIf="describe" [id]="describedby" class="mt-1 text-gray-500">
+    {{ describe }}
+  </div>
 </div>
