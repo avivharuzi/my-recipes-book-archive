@@ -4,44 +4,46 @@
   [formGroup]="signUpForm"
   (ngSubmit)="onSubmit()"
 >
-  <app-form-input
-    id="firstName"
-    placeholder="First Name"
-    label="First Name"
-    formControlName="firstName"
-    [control]="signUpForm.get('firstName')"
-  ></app-form-input>
-  <app-form-input
-    id="lastName"
-    placeholder="Last Name"
-    label="Last Name"
-    formControlName="lastName"
-    [control]="signUpForm.get('lastName')"
-  ></app-form-input>
-  <app-form-input
-    type="email"
-    id="email"
-    placeholder="Email"
-    label="Email"
-    formControlName="email"
-    [control]="signUpForm.get('email')"
-  ></app-form-input>
-  <app-form-input
-    id="userName"
-    placeholder="User Name"
-    label="User Name"
-    formControlName="userName"
-    [control]="signUpForm.get('userName')"
-  ></app-form-input>
-  <app-form-input
-    type="password"
-    id="password"
-    placeholder="Password"
-    label="Password"
-    formControlName="password"
-    [control]="signUpForm.get('password')"
-  ></app-form-input>
-  <app-button class="w-full mt-4" type="submit">Sign Up</app-button>
+  <div class="flex flex-col space-y-4">
+    <app-form-input
+      id="firstName"
+      placeholder="First Name"
+      label="First Name"
+      formControlName="firstName"
+      [control]="signUpForm.get('firstName')"
+    ></app-form-input>
+    <app-form-input
+      id="lastName"
+      placeholder="Last Name"
+      label="Last Name"
+      formControlName="lastName"
+      [control]="signUpForm.get('lastName')"
+    ></app-form-input>
+    <app-form-input
+      type="email"
+      id="email"
+      placeholder="Email"
+      label="Email"
+      formControlName="email"
+      [control]="signUpForm.get('email')"
+    ></app-form-input>
+    <app-form-input
+      id="userName"
+      placeholder="User Name"
+      label="User Name"
+      formControlName="userName"
+      [control]="signUpForm.get('userName')"
+    ></app-form-input>
+    <app-form-input
+      type="password"
+      id="password"
+      placeholder="Password"
+      label="Password"
+      formControlName="password"
+      [control]="signUpForm.get('password')"
+    ></app-form-input>
+  </div>
+  <app-button class="block w-full mt-6">Sign Up</app-button>
   <p class="text-center mt-8">
     Already have an account?
     <a class="link" routerLink="/auth/login">Log In</a>
