@@ -10,6 +10,7 @@ import { DefaultImageDirective } from './directives/default-image.directive';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
 import { FormInputFileComponent } from './components/form-input-file/form-input-file.component';
+import { FormTextareaComponent } from './components/form-textarea/form-textarea.component';
 import { ImagePipe } from './pipes/image.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LogoComponent } from './components/logo/logo.component';
@@ -27,6 +28,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     FormInputComponent,
     FormInputErrorComponent,
     FormInputFileComponent,
+    FormTextareaComponent,
     ImagePipe,
     LoaderComponent,
     LogoComponent,
@@ -45,6 +47,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     FormInputComponent,
     FormInputErrorComponent,
     FormInputFileComponent,
+    FormTextareaComponent,
     ImagePipe,
     LoaderComponent,
     LogoComponent,
