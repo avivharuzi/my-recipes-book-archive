@@ -13,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  @Input() link!: string;
+  @Input() link!: string | string[];
   @Input() imgSrc!: string;
   @Input() title!: string;
   @Input() description?: string;
