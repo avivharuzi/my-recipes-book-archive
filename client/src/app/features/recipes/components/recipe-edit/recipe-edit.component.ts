@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { finalize, mergeMap } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
@@ -21,7 +21,8 @@ export class RecipeEditComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) {
     this.recipe$ = this.activatedRoute.paramMap.pipe(
       mergeMap(params => this.recipeService.getDetail(params.get('id') || ''))
@@ -41,5 +42,18 @@ export class RecipeEditComponent {
       .subscribe(() => {
         this.message$.next(new SuccessMessage('Recipe updated successfully.'));
       });
+  }
+
+  onDelete(id: string): void {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      this.isLoading = true;
+      this.recipeService
+        .delete(id)
+        .pipe(
+          errorMessageOperator(message => this.message$.next(message)),
+          finalize(() => (this.isLoading = false))
+        )
+        .subscribe(() => this.router.navigate(['/recipes']).then());
+    }
   }
 }

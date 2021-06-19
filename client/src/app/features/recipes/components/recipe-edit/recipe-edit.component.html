@@ -4,6 +4,7 @@
     <app-recipe-form
       [recipe]="recipe"
       (formSubmit)="onFormSubmit(recipe._id, $event)"
+      (delete)="onDelete(recipe._id)"
     ></app-recipe-form>
   </app-loader>
 </ng-container>
