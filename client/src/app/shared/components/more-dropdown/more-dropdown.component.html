@@ -1,0 +1,25 @@
+<div class="relative" appOutsideClick (outsideClick)="closeDropdownMenu()">
+  <app-button
+    type="default"
+    icon="more_vert"
+    [isFullRounded]="true"
+    (click)="toggleDropdownMenu()"
+  ></app-button>
+  <ul class="dropdown mt-16" *ngIf="isDropdownMenuOpen">
+    <li>
+      <a
+        class="flex items-center cursor-pointer"
+        (click)="edit.emit(); closeDropdownMenu()"
+        ><span class="material-icons flex mr-3">edit</span>Edit</a
+      >
+    </li>
+    <li>
+      <a
+        class="flex items-center cursor-pointer"
+        (click)="delete.emit(); closeDropdownMenu()"
+        ><span class="material-icons flex mr-3 text-red-500">delete</span
+        >Delete</a
+      >
+    </li>
+  </ul>
+</div>

@@ -6,8 +6,6 @@ import {
   OnInit,
 } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
-
 @Directive({
   selector: '[appDefaultImage]',
 })
@@ -23,13 +21,15 @@ export class DefaultImageDirective implements OnInit {
     this.src = this.appDefaultImage;
   }
 
+  private readonly defaultImage = 'assets/images/defaults/default-image.jpg';
+
   constructor() {
-    this.appDefaultImage = environment.defaultImagePath;
+    this.appDefaultImage = this.defaultImage;
   }
 
   ngOnInit(): void {
     if (!this.appDefaultImage) {
-      this.appDefaultImage = environment.defaultImagePath;
+      this.appDefaultImage = this.defaultImage;
     }
   }
 }

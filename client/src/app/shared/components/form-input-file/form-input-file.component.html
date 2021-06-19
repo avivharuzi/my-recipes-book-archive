@@ -1,21 +1,22 @@
 <ng-container>
-  <div class="mb-4">
+  <div>
     <label
       class="
         flex flex-col
         items-center
-        px-4
+        px-5
         py-3
-        text-lg
+        border border-transparent
+        rounded-md
         bg-gray-300
         hover:bg-gray-400
-        rounded-md
-        focus:outline-none
+        text-lg
         cursor-pointer
+        focus:outline-none
       "
     >
-      <span class="flex flex-row"
-        ><span class="mr-3 material-icons">file_upload</span>{{ label }}</span
+      <span class="flex flex-row items-center"
+        ><span class="material-icons mr-3">file_upload</span>{{ label }}</span
       >
       <input
         type="file"

@@ -1,17 +1,15 @@
-<div class="bg-white shadow">
+<div class="shadow bg-white">
   <div class="lg:container lg:mx-auto">
     <!-- Top Mobile Menu -->
-    <div
-      class="flex items-center justify-between px-5 py-3 border-b-2 lg:hidden"
-    >
+    <div class="flex lg:hidden items-center justify-between px-5 py-3">
       <div class="flex items-center">
         <div class="mr-5">
-          <button
+          <app-button
+            type="default"
+            icon="menu"
+            [isFullRounded]="true"
             (click)="toggleMenu()"
-            class="p-4 rounded-full hover:bg-gray-100 focus:outline-none"
-          >
-            <span class="flex material-icons">menu</span>
-          </button>
+          ></app-button>
         </div>
         <a routerLink="/"><app-logo></app-logo></a>
       </div>
@@ -22,7 +20,7 @@
       class="flex-col lg:flex lg:flex-row lg:items-center lg:justify-between"
       [ngClass]="{ flex: showMenu, hidden: !showMenu }"
     >
-      <ul class="flex flex-col lg:flex-row lg:items-center">
+      <ul class="flex flex-col lg:flex-row lg:items-center border lg:border-0">
         <li class="hidden lg:block mr-5">
           <a class="block" routerLink="/"><app-logo></app-logo></a>
         </li>
@@ -32,7 +30,7 @@
           </li>
           <li class="nav-item">
             <a routerLink="/collections" routerLinkActive="active"
-              >Collection</a
+              >Collections</a
             >
           </li>
         </ng-container>

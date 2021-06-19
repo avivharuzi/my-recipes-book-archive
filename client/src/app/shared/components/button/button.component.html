@@ -2,15 +2,30 @@
   class="
     block
     w-full
-    px-4
+    px-5
     py-3
-    text-lg text-white
-    bg-yellow-600
-    hover:bg-yellow-700
+    border border-transparent
+    text-white text-lg
     rounded-md
     focus:outline-none
   "
-  [type]="type"
+  [ngClass]="{
+    'bg-yellow-600 hover:bg-yellow-700': type === 'primary',
+    'text-yellow-700 bg-yellow-50 hover:bg-yellow-100': type === 'secondary',
+    'bg-red-600 hover:bg-red-700': type === 'danger',
+    'text-red-700 bg-red-50 hover:bg-red-100': type === 'danger-light',
+    'border-gray-300 text-gray-700 bg-white hover:bg-gray-50':
+      type === 'default',
+    'rounded-full': isFullRounded
+  }"
 >
-  <ng-content></ng-content>
+  <span class="flex items-center justify-center"
+    ><span
+      *ngIf="icon"
+      class="flex material-icons"
+      [ngClass]="{ 'mr-3': content.childNodes.length > 0 }"
+      >{{ icon }}</span
+    >
+    <span #content><ng-content></ng-content></span>
+  </span>
 </button>

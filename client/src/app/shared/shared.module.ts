@@ -19,6 +19,7 @@ import { FormTextareaComponent } from './components/form-textarea/form-textarea.
 import { ImagePipe } from './pipes/image.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { MoreDropdownComponent } from './components/more-dropdown/more-dropdown.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
@@ -42,10 +43,12 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ImagePipe,
     LoaderComponent,
     LogoComponent,
+    MoreDropdownComponent,
     NavbarComponent,
     OutsideClickDirective,
     SafeUrlPipe,
     UserDropdownComponent,
+    MoreDropdownComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -66,6 +69,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ImagePipe,
     LoaderComponent,
     LogoComponent,
+    MoreDropdownComponent,
     NavbarComponent,
     OutsideClickDirective,
     ReactiveFormsModule,

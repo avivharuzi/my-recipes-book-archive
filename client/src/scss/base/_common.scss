@@ -1,15 +1,34 @@
-.link {
+a.link {
   @apply text-yellow-600 hover:text-yellow-700 hover:underline;
 }
 
-.nav-item {
+li.nav-item {
   @apply h-full;
 
   a {
-    @apply block h-full w-full p-5 border-b-2 border-white hover:bg-gray-100 hover:border-gray-100;
+    @apply block w-full h-full p-5 border-b-2 border-white hover:bg-gray-100 hover:border-gray-100;
 
     &.active {
-      @apply border-yellow-500;
+      @apply border-yellow-600;
+    }
+  }
+}
+
+ul.dropdown {
+  @apply absolute top-0 right-0 flex flex-col w-48 lg:w-64 mt-14 rounded-md shadow bg-white divide-y z-50;
+
+  li {
+    a {
+      @apply block w-full h-full p-5 hover:bg-gray-100 hover:border-gray-100 hover:rounded-md;
+    }
+  }
+}
+
+form {
+  .ng-dirty.ng-invalid {
+    input,
+    textarea {
+      @apply border border-red-300 focus:border-red-500 #{!important};
     }
   }
 }

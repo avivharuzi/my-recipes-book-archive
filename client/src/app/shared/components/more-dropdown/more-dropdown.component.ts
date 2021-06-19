@@ -2,26 +2,24 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
 } from '@angular/core';
 
 @Component({
-  selector: 'app-user-dropdown',
-  templateUrl: './user-dropdown.component.html',
-  styleUrls: ['./user-dropdown.component.scss'],
+  selector: 'app-more-dropdown',
+  templateUrl: './more-dropdown.component.html',
+  styleUrls: ['./more-dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserDropdownComponent {
-  @Input() profileImg: string;
-  @Input() userName?: string;
-  @Output() logOut: EventEmitter<void>;
+export class MoreDropdownComponent {
+  @Output() edit: EventEmitter<void>;
+  @Output() delete: EventEmitter<void>;
 
   isDropdownMenuOpen: boolean;
 
   constructor() {
-    this.profileImg = '';
-    this.logOut = new EventEmitter<void>();
+    this.edit = new EventEmitter<void>();
+    this.delete = new EventEmitter<void>();
     this.isDropdownMenuOpen = false;
   }
 

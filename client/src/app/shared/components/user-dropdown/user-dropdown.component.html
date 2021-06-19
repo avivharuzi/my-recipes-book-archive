@@ -1,7 +1,7 @@
 <div
-  class="h-full relative"
+  class="relative h-full"
   appOutsideClick
-  (outsideClick)="isDropdownMenuOpen = false"
+  (outsideClick)="closeDropdownMenu()"
 >
   <button class="focus:outline-none" (click)="toggleDropdownMenu()">
     <img
@@ -11,36 +11,17 @@
       [src]="profileImg"
     />
   </button>
-  <ul
-    class="
-      absolute
-      top-10
-      right-0
-      flex flex-col
-      w-48
-      lg:w-64
-      bg-white
-      divide-y
-      shadow
-      rounded-md
-      z-50
-    "
-    *ngIf="isDropdownMenuOpen"
-  >
-    <li class="w-full">
+  <ul class="dropdown mt-12" *ngIf="isDropdownMenuOpen">
+    <li class="w-full" *ngIf="userName">
       <div class="p-5">
         <span class="font-bold">{{ userName }}</span>
       </div>
     </li>
-    <li class="nav-item">
-      <a (click)="isDropdownMenuOpen = false" routerLink="/settings"
-        >Settings</a
-      >
+    <li>
+      <a (click)="closeDropdownMenu()" routerLink="/settings">Settings</a>
     </li>
-    <li class="nav-item">
-      <a
-        class="cursor-pointer"
-        (click)="isDropdownMenuOpen = false; logOut.emit()"
+    <li>
+      <a class="cursor-pointer" (click)="closeDropdownMenu(); logOut.emit()"
         >Log Out</a
       >
     </li>

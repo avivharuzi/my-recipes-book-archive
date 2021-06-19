@@ -17,4 +17,15 @@ export class AlertComponent {
   constructor() {
     this.isDismissible = true;
   }
+
+  get icon(): string {
+    switch (this.message?.type) {
+      case MessageType.Success:
+        return 'check_circle';
+      case MessageType.Error:
+        return 'error';
+      default:
+        return '';
+    }
+  }
 }

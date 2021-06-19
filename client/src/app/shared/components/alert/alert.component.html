@@ -1,13 +1,14 @@
 <ng-container *ngIf="message">
   <div
-    class="flex justify-between items-start p-4 mb-6 rounded-md"
+    class="flex justify-between items-start p-5 mb-12 rounded-md"
     [ngClass]="{
       'bg-green-50 text-green-700': message.type === MessageType.Success,
       'bg-red-50 text-red-700': message.type === MessageType.Error
     }"
   >
-    <p class="text-lg">
-      {{ message.content }}
+    <p class="flex items-center text-lg">
+      <span class="flex material-icons mr-3">{{ icon }}</span
+      >{{ message.content }}
     </p>
     <span
       class="flex cursor-pointer material-icons ml-8"
