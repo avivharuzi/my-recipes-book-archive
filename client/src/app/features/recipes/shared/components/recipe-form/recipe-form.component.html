@@ -4,9 +4,9 @@
   [formGroup]="recipeForm"
   (ngSubmit)="onSubmit()"
 >
-  <div class="flex flex-col flex-col-reverse lg:flex-row lg:gap-8">
+  <div class="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
     <div class="w-full lg:w-4/12">
-      <div class="mb-8">
+      <div class="mt-4 lg:mt-0 mb-8">
         <div class="mb-4 flex justify-center">
           <img
             class="coverImage object-cover rounded-md"
@@ -25,73 +25,96 @@
           [control]="recipeForm.get('coverImage')"
         ></app-form-input-file>
       </div>
-      <app-form-input
-        type="number"
-        id="preparationTime"
-        placeholder="Preparation Time"
-        label="Preparation Time"
-        formControlName="preparationTime"
-        [control]="recipeForm.get('preparationTime')"
-      ></app-form-input>
-      <app-form-input
-        type="number"
-        id="cookingTime"
-        placeholder="Cooking Time"
-        label="Cooking Time"
-        formControlName="cookingTime"
-        [control]="recipeForm.get('cookingTime')"
-      ></app-form-input>
-      <app-form-input
-        type="number"
-        id="servingsAmount"
-        placeholder="Servings Amount"
-        label="Servings Amount"
-        formControlName="servingsAmount"
-        [control]="recipeForm.get('servingsAmount')"
-      ></app-form-input>
-      <app-button class="block w-full mt-4 lg:hidden" type="submit"
-        >Save</app-button
-      >
+      <div class="flex flex-col space-y-4">
+        <app-form-input
+          type="number"
+          id="preparationTime"
+          placeholder="Preparation Time"
+          label="Preparation Time"
+          formControlName="preparationTime"
+          [control]="recipeForm.get('preparationTime')"
+        ></app-form-input>
+        <app-form-input
+          type="number"
+          id="cookingTime"
+          placeholder="Cooking Time"
+          label="Cooking Time"
+          formControlName="cookingTime"
+          [control]="recipeForm.get('cookingTime')"
+        ></app-form-input>
+        <app-form-input
+          type="number"
+          id="servingsAmount"
+          placeholder="Servings Amount"
+          label="Servings Amount"
+          formControlName="servingsAmount"
+          [control]="recipeForm.get('servingsAmount')"
+        ></app-form-input>
+      </div>
+      <div class="block lg:hidden mt-6">
+        <ng-container *ngTemplateOutlet="buttons"></ng-container>
+      </div>
     </div>
     <div class="w-full lg:w-8/12">
-      <app-form-input
-        id="title"
-        placeholder="Title"
-        label="Title"
-        formControlName="title"
-        [control]="recipeForm.get('title')"
-      ></app-form-input>
-      <app-form-textarea
-        id="description"
-        placeholder="Description"
-        label="Description"
-        formControlName="description"
-        [control]="recipeForm.get('description')"
-      >
-      </app-form-textarea>
-      <app-form-textarea
-        id="ingredients"
-        placeholder="Ingredients"
-        label="Ingredients"
-        describe="Put each ingredient on its own line."
-        describedby="ingredientsDescribe"
-        formControlName="ingredients"
-        [control]="recipeForm.get('ingredients')"
-      >
-      </app-form-textarea>
-      <app-form-textarea
-        id="directions"
-        placeholder="Directions"
-        label="Directions"
-        describe="Put each step on its own line."
-        describedby="directionsDescribe"
-        formControlName="directions"
-        [control]="recipeForm.get('directions')"
-      >
-      </app-form-textarea>
-      <app-button class="hidden w-full mt-4 lg:block" type="submit"
-        >Save</app-button
-      >
+      <div class="flex flex-col space-y-4">
+        <app-form-input
+          id="title"
+          placeholder="Title"
+          label="Title"
+          formControlName="title"
+          [control]="recipeForm.get('title')"
+        ></app-form-input>
+        <app-form-textarea
+          id="description"
+          placeholder="Description"
+          label="Description"
+          formControlName="description"
+          [control]="recipeForm.get('description')"
+        >
+        </app-form-textarea>
+        <app-form-textarea
+          id="ingredients"
+          placeholder="Ingredients"
+          label="Ingredients"
+          describe="Put each ingredient on its own line."
+          describedby="ingredientsDescribe"
+          formControlName="ingredients"
+          [control]="recipeForm.get('ingredients')"
+        >
+        </app-form-textarea>
+        <app-form-textarea
+          id="directions"
+          placeholder="Directions"
+          label="Directions"
+          describe="Put each step on its own line."
+          describedby="directionsDescribe"
+          formControlName="directions"
+          [control]="recipeForm.get('directions')"
+        >
+        </app-form-textarea>
+      </div>
+      <div class="hidden lg:block mt-6">
+        <ng-container *ngTemplateOutlet="buttons"></ng-container>
+      </div>
     </div>
   </div>
 </form>
+
+<ng-template #buttons>
+  <div
+    class="flex flex-row"
+    [ngClass]="{ 'justify-between': !!recipe, 'justify-end': !recipe }"
+  >
+    <app-button
+      type="danger-light"
+      icon="delete"
+      (click)="$event.preventDefault(); delete.emit()"
+      *ngIf="recipe"
+      >Delete</app-button
+    >
+    <div class="flex flex-row space-x-8">
+      <app-button routerLink="/recipes" type="default">Cancel</app-button>
+      <app-button icon="save">Save</app-button>
+    </div>
+  </div>
+</ng-template>

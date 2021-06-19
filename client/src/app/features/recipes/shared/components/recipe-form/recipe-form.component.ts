@@ -24,12 +24,14 @@ import { UpdateRecipeBody } from '../../update-recipe-body';
 export class RecipeFormComponent implements OnInit {
   @Input() recipe?: Recipe;
   @Output() formSubmit: EventEmitter<FormData>;
+  @Output() delete: EventEmitter<void>;
 
   recipeForm: FormGroup;
   coverImagePreview: string | null;
 
   constructor(private formBuilder: FormBuilder) {
     this.formSubmit = new EventEmitter<FormData>();
+    this.delete = new EventEmitter<void>();
     this.recipeForm = this.formBuilder.group({
       title: ['', [CustomValidators.required, CustomValidators.maxLength(128)]],
       description: [
