@@ -30,8 +30,8 @@ export class RecipeNewComponent {
         errorMessageOperator(message => this.message$.next(message)),
         finalize(() => (this.isLoading = false))
       )
-      .subscribe(recipe => {
-        this.router.navigate([`/recipes/${recipe._id}`]).then();
+      .subscribe(() => {
+        this.router.navigate(['/recipes']).then();
       });
   }
 }
