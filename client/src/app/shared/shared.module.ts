@@ -9,6 +9,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
+import { DirectionListComponent } from './components/direction-list/direction-list.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
@@ -30,6 +31,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     CardComponent,
     ContainerComponent,
     DefaultImageDirective,
+    DirectionListComponent,
     FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,
@@ -52,6 +54,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     CommonModule,
     ContainerComponent,
     DefaultImageDirective,
+    DirectionListComponent,
     FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,

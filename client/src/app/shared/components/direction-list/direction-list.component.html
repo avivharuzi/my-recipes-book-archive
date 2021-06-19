@@ -1,0 +1,9 @@
+<ul class="flex flex-col gap-y-8">
+  <li *ngFor="let direction of directions; let i = index">
+    <span class="flex mb-3 font-bold"
+      ><span class="material-icons text-gray-500 mr-3"> check_circle </span>Step
+      {{ i + 1 }}</span
+    >
+    <p class="text-lg">{{ direction }}</p>
+  </li>
+</ul>
