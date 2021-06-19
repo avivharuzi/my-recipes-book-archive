@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { CreateRecipeBody } from '../../create-recipe-body';
 import { CustomValidators } from '../../../../../shared/shared/custom-validators';
@@ -26,6 +26,7 @@ export class RecipeFormComponent implements OnInit {
   @Output() formSubmit: EventEmitter<FormData>;
 
   recipeForm: FormGroup;
+  coverImagePreview: string | null;
 
   constructor(private formBuilder: FormBuilder) {
     this.formSubmit = new EventEmitter<FormData>();
@@ -51,10 +52,22 @@ export class RecipeFormComponent implements OnInit {
         [CustomValidators.required, CustomValidators.min(0)],
       ],
     });
+    this.coverImagePreview = null;
   }
 
   ngOnInit(): void {
     this.fillRecipeForm();
+    this.coverImageFormControl.valueChanges.subscribe(value => {
+      if (value && value.length > 0 && this.coverImageFormControl.valid) {
+        this.coverImagePreview = URL.createObjectURL(value[0]);
+      } else {
+        this.coverImagePreview = null;
+      }
+    });
+  }
+
+  get coverImageFormControl(): FormControl {
+    return this.recipeForm.get('coverImage') as FormControl;
   }
 
   onSubmit(): void {
@@ -64,8 +77,12 @@ export class RecipeFormComponent implements OnInit {
     }
 
     const recipeFormValue = this.recipeForm.value;
-    recipeFormValue.ingredients = recipeFormValue.ingredients.splice(/\r?\n/);
-    recipeFormValue.directions = recipeFormValue.directions.splice(/\r?\n/);
+    recipeFormValue.ingredients = recipeFormValue.ingredients.split(/\r?\n/);
+    recipeFormValue.directions = recipeFormValue.directions.split(/\r?\n/);
+    recipeFormValue.preparationTime = +recipeFormValue.preparationTime;
+    recipeFormValue.cookingTime = +recipeFormValue.cookingTime;
+    recipeFormValue.servingsAmount = +recipeFormValue.servingsAmount;
+
     const body: CreateRecipeBody | UpdateRecipeBody = recipeFormValue;
     const coverImage = body.coverImage;
     delete body.coverImage;
@@ -91,8 +108,6 @@ export class RecipeFormComponent implements OnInit {
       cookingTime: this.recipe.cookingTime,
       servingsAmount: this.recipe.servingsAmount,
     });
-    this.recipeForm
-      .get('coverImage')
-      ?.setValidators([...getCommonImageValidators()]);
+    this.coverImageFormControl.setValidators([...getCommonImageValidators()]);
   }
 }

@@ -2,6 +2,7 @@ import { Image } from '../../../shared/shared/image';
 import { User } from '../../auth/shared/user';
 
 export interface Recipe {
+  _id: string;
   user: User;
   title: string;
   slug: string;

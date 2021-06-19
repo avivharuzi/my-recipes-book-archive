@@ -1,1 +1,97 @@
-<p>recipe-form works!</p>
+<form
+  novalidate
+  autocomplete="off"
+  [formGroup]="recipeForm"
+  (ngSubmit)="onSubmit()"
+>
+  <div class="flex flex-col flex-col-reverse lg:flex-row lg:gap-8">
+    <div class="w-full lg:w-4/12">
+      <div class="mb-8">
+        <div class="mb-4 flex justify-center">
+          <img
+            class="coverImage object-cover rounded-md"
+            alt="Cover Image"
+            appDefaultImage
+            [src]="
+              coverImagePreview ||
+                (recipe && recipe.coverImage ? (recipe.coverImage | image) : '')
+                | safeUrl
+            "
+          />
+        </div>
+        <app-form-input-file
+          formControlName="coverImage"
+          [multiple]="false"
+          [control]="recipeForm.get('coverImage')"
+        ></app-form-input-file>
+      </div>
+      <app-form-input
+        type="number"
+        id="preparationTime"
+        placeholder="Preparation Time"
+        label="Preparation Time"
+        formControlName="preparationTime"
+        [control]="recipeForm.get('preparationTime')"
+      ></app-form-input>
+      <app-form-input
+        type="number"
+        id="cookingTime"
+        placeholder="Cooking Time"
+        label="Cooking Time"
+        formControlName="cookingTime"
+        [control]="recipeForm.get('cookingTime')"
+      ></app-form-input>
+      <app-form-input
+        type="number"
+        id="servingsAmount"
+        placeholder="Servings Amount"
+        label="Servings Amount"
+        formControlName="servingsAmount"
+        [control]="recipeForm.get('servingsAmount')"
+      ></app-form-input>
+      <app-button class="block w-full mt-4 lg:hidden" type="submit"
+        >Save</app-button
+      >
+    </div>
+    <div class="w-full lg:w-8/12">
+      <app-form-input
+        id="title"
+        placeholder="Title"
+        label="Title"
+        formControlName="title"
+        [control]="recipeForm.get('title')"
+      ></app-form-input>
+      <app-form-textarea
+        id="description"
+        placeholder="Description"
+        label="Description"
+        formControlName="description"
+        [control]="recipeForm.get('description')"
+      >
+      </app-form-textarea>
+      <app-form-textarea
+        id="ingredients"
+        placeholder="Ingredients"
+        label="Ingredients"
+        describe="Put each ingredient on its own line."
+        describedby="ingredientsDescribe"
+        formControlName="ingredients"
+        [control]="recipeForm.get('ingredients')"
+      >
+      </app-form-textarea>
+      <app-form-textarea
+        id="directions"
+        placeholder="Directions"
+        label="Directions"
+        describe="Put each step on its own line."
+        describedby="directionsDescribe"
+        formControlName="directions"
+        [control]="recipeForm.get('directions')"
+      >
+      </app-form-textarea>
+      <app-button class="hidden w-full mt-4 lg:block" type="submit"
+        >Save</app-button
+      >
+    </div>
+  </div>
+</form>

@@ -1,1 +1,4 @@
-<p>recipe-new works!</p>
+<app-loader [isLoading]="isLoading">
+  <app-alert [message]="message$ | async"></app-alert>
+  <app-recipe-form (formSubmit)="onFormSubmit($event)"></app-recipe-form>
+</app-loader>
