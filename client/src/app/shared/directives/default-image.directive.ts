@@ -1,11 +1,17 @@
-import { Directive, HostBinding, HostListener, Input } from '@angular/core';
+import {
+  Directive,
+  HostBinding,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 
 @Directive({
   selector: '[appDefaultImage]',
 })
-export class DefaultImageDirective {
+export class DefaultImageDirective implements OnInit {
   @Input() appDefaultImage: string;
 
   @HostBinding('src')
@@ -19,5 +25,11 @@ export class DefaultImageDirective {
 
   constructor() {
     this.appDefaultImage = environment.defaultImagePath;
+  }
+
+  ngOnInit(): void {
+    if (!this.appDefaultImage) {
+      this.appDefaultImage = environment.defaultImagePath;
+    }
   }
 }
