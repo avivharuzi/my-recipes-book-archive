@@ -1,13 +1,18 @@
-<ng-container>
-  <header>
-    <app-navbar
-      [user]="user$ | async"
-      [isLoggedIn]="!!(isLoggedIn$ | async)"
-      [isLoggedOut]="!!(isLoggedOut$ | async)"
-      (logOut)="onLogout()"
-    ></app-navbar>
-  </header>
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-</ng-container>
+<div class="relative min-h-screen">
+  <div class="content-without-footer">
+    <header>
+      <app-navbar
+        [user]="user$ | async"
+        [isLoggedIn]="!!(isLoggedIn$ | async)"
+        [isLoggedOut]="!!(isLoggedOut$ | async)"
+        (logOut)="onLogout()"
+      ></app-navbar>
+    </header>
+    <main class="mb-16">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  <footer class="absolute bottom-0 w-full">
+    <app-footer></app-footer>
+  </footer>
+</div>
