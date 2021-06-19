@@ -1,4 +1,8 @@
-<div class="h-full relative">
+<div
+  class="h-full relative"
+  appOutsideClick
+  (outsideClick)="isDropdownMenuOpen = false"
+>
   <button class="focus:outline-none" (click)="toggleDropdownMenu()">
     <img
       class="profileImage object-cover rounded-full"
@@ -19,11 +23,9 @@
       divide-y
       shadow
       rounded-md
-      z-10
+      z-50
     "
-    appOutsideClick="assets/images/defaults/default-profile.jpg"
     *ngIf="isDropdownMenuOpen"
-    (outsideClick)="isDropdownMenuOpen = false"
   >
     <li class="w-full">
       <div class="p-5">
