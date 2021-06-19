@@ -5,12 +5,19 @@ import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.
 import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
 import { RecipeListComponent } from './components/recipe-list/recipe-list.component';
 import { RecipeNewComponent } from './components/recipe-new/recipe-new.component';
+import { RecipesComponent } from './recipes.component';
 
 const routes: Routes = [
-  { path: '', component: RecipeListComponent },
-  { path: 'new', component: RecipeNewComponent },
-  { path: ':id', component: RecipeDetailComponent },
-  { path: ':id/edit', component: RecipeEditComponent },
+  {
+    path: '',
+    component: RecipesComponent,
+    children: [
+      { path: '', component: RecipeListComponent },
+      { path: 'new', component: RecipeNewComponent },
+      { path: ':id', component: RecipeDetailComponent },
+      { path: ':id/edit', component: RecipeEditComponent },
+    ],
+  },
 ];
 
 @NgModule({
