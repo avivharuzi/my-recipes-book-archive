@@ -23,6 +23,7 @@ export class FormTextareaComponent
   @Input() id: string;
   @Input() placeholder: string;
   @Input() label: string;
+  @Input() rows: number;
   @Input() describe: string;
   @Input() describedby: string;
   @Input() control: AbstractControl | null;
@@ -33,6 +34,7 @@ export class FormTextareaComponent
     this.id = '';
     this.placeholder = '';
     this.label = '';
+    this.rows = 5;
     this.describe = '';
     this.describedby = '';
     this.value = '';
