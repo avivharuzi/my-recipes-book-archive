@@ -11,7 +11,9 @@ export class RecipeService {
   static async getAllByUser(user: User): Promise<Recipe[]> {
     return RecipeModel.find({
       user: user.id,
-    }).populate('coverImage');
+    })
+      .populate('coverImage')
+      .sort('-createdAt');
   }
 
   static async getDetailsByUser(id: string, user: User): Promise<Recipe> {

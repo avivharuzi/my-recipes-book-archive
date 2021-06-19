@@ -10,7 +10,9 @@ export class CollectionService {
   static async getAllByUser(user: User): Promise<Collection[]> {
     return CollectionModel.find({
       user: user.id,
-    }).populate('recipes');
+    })
+      .populate('recipes')
+      .sort('-createdAt');
   }
 
   static async getDetailsByUser(id: string, user: User): Promise<Collection> {
