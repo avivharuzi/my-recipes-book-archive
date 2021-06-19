@@ -44,16 +44,17 @@
         >
           <li class="nav-item">
             <a
-              class="cursor-pointer"
+              class="flex cursor-pointer"
               (click)="delete.emit(); isDropdownMenuOpen = false"
-              >Delete<span class="material-icons text-red-500">delete</span></a
+              ><span class="material-icons text-red-500 mr-3">delete</span
+              >Delete</a
             >
           </li>
           <li class="nav-item">
             <a
-              class="cursor-pointer"
+              class="flex cursor-pointer"
               (click)="edit.emit(); isDropdownMenuOpen = false"
-              >Edit<span class="material-icons">edit</span></a
+              ><span class="material-icons mr-3">edit</span>Edit</a
             >
           </li>
         </ul>
