@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { AddItemComponent } from './components/add-item/add-item.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ContainerComponent } from './components/container/container.component';
@@ -22,6 +23,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
 
 @NgModule({
   declarations: [
+    AddItemComponent,
     AlertComponent,
     ButtonComponent,
     ContainerComponent,
@@ -41,6 +43,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
+    AddItemComponent,
     AlertComponent,
     ButtonComponent,
     CommonModule,

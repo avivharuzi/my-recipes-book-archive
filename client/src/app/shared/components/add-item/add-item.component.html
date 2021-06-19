@@ -1,0 +1,21 @@
+<div
+  class="
+    w-full
+    h-full
+    flex flex-col
+    items-center
+    justify-center
+    p-5
+    bg-gray-50
+    hover:bg-gray-100
+    shadow
+    rounded-md
+    cursor-pointer
+  "
+  [routerLink]="link"
+>
+  <div class="mb-3">
+    <span class="material-icons p-3 bg-white rounded-full">add</span>
+  </div>
+  <p><ng-content></ng-content></p>
+</div>
