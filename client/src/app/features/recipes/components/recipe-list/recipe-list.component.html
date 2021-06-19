@@ -1,1 +1,13 @@
-<p>recipe-list works!</p>
+<div
+  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+>
+  <app-add-item link="/recipes/new">Add a Recipe</app-add-item>
+  <ng-container *ngIf="recipes && recipes.length > 0">
+    <app-recipe-item
+      *ngFor="let recipe of recipes"
+      [recipe]="recipe"
+      (delete)="onDelete($event)"
+    >
+    </app-recipe-item>
+  </ng-container>
+</div>

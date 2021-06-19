@@ -1,0 +1,10 @@
+<app-loader [isLoading]="isLoading" *ngIf="recipe">
+  <app-card
+    [title]="recipe.title"
+    [description]="recipe.description"
+    [imgSrc]="recipe.coverImage | image"
+    [link]="'/recipes/' + recipe._id"
+    (edit)="onEdit()"
+    (delete)="onDelete()"
+  ></app-card>
+</app-loader>
