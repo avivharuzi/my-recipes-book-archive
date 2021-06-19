@@ -1,4 +1,5 @@
 export interface Image {
+  _id: string;
   sizes: ImageSizes;
   description?: string;
   createdAt: Date;
