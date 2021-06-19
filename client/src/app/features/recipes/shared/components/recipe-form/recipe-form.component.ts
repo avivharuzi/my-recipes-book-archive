@@ -76,7 +76,7 @@ export class RecipeFormComponent implements OnInit {
       return;
     }
 
-    const recipeFormValue = this.recipeForm.value;
+    const recipeFormValue = { ...this.recipeForm.value };
     recipeFormValue.ingredients = recipeFormValue.ingredients.split(/\r?\n/);
     recipeFormValue.directions = recipeFormValue.directions.split(/\r?\n/);
     recipeFormValue.preparationTime = +recipeFormValue.preparationTime;
