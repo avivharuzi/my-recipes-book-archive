@@ -1,0 +1,69 @@
+<div class="w-full flex flex-row sm:flex-col shadow rounded-md">
+  <div class="w-4/12 sm:w-full rounded-md relative">
+    <img
+      class="w-full h-full object-cover rounded-t-md cursor-pointer"
+      [src]="imgSrc"
+      [alt]="title + ' - Cover Image'"
+      [routerLink]="link"
+    />
+    <div class="absolute top-0 top-0 left-0 sm:left-auto sm:right-0 m-2 sm:m-4">
+      <div
+        class="relative"
+        appOutsideClick
+        (outsideClick)="isDropdownMenuOpen = false"
+      >
+        <button
+          (click)="isDropdownMenuOpen = !isDropdownMenuOpen"
+          class="
+            bg-white
+            cursor-pointer
+            p-3
+            rounded-full
+            hover:bg-gray-100
+            focus:outline-none
+          "
+        >
+          <span class="flex material-icons">more_vert</span>
+        </button>
+        <ul
+          class="
+            absolute
+            top-0
+            flex flex-col
+            w-48
+            shadow
+            z-10
+            mt-14
+            left-0
+            sm:left-auto
+            sm:right-0
+            bg-white
+            rounded-md
+          "
+          *ngIf="isDropdownMenuOpen"
+        >
+          <li class="nav-item">
+            <a
+              class="cursor-pointer"
+              (click)="delete.emit(); isDropdownMenuOpen = false"
+              >Delete<span class="material-icons text-red-500">delete</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="cursor-pointer"
+              (click)="edit.emit(); isDropdownMenuOpen = false"
+              >Edit<span class="material-icons">edit</span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-8/12 sm:w-full p-5 cursor-pointer" [routerLink]="link">
+    <h3 class="text-2xl font-bold mb-3 line-clamp-2">{{ title }}</h3>
+    <p class="text-base text-gray-500 line-clamp-2" *ngIf="description">
+      {{ description }}
+    </p>
+  </div>
+</div>

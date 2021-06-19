@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { AddItemComponent } from './components/add-item/add-item.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
+import { CardComponent } from './components/card/card.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { FooterComponent } from './components/footer/footer.component';
@@ -26,6 +27,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     AddItemComponent,
     AlertComponent,
     ButtonComponent,
+    CardComponent,
     ContainerComponent,
     DefaultImageDirective,
     FooterComponent,
@@ -46,6 +48,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     AddItemComponent,
     AlertComponent,
     ButtonComponent,
+    CardComponent,
     CommonModule,
     ContainerComponent,
     DefaultImageDirective,
