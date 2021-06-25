@@ -14,7 +14,7 @@
       [alt]="title + ' - Cover Image'"
       [routerLink]="link"
     />
-    <div class="absolute top-0 left-0 sm:left-auto sm:right-0 m-2 sm:m-4">
+    <div class="hidden sm:block sm:absolute top-0 right-0 m-4">
       <app-more-dropdown
         (edit)="edit.emit()"
         (delete)="delete.emit()"
