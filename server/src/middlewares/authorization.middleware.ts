@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Forbidden } from '../errors/forbidden';
+import { ForbiddenError } from '../errors/forbidden-error';
 import { UserRole } from '../modules/users/user.model';
 
 export const authorizationMiddleware = (allowedUserRoles: UserRole[]) => {
@@ -12,6 +12,6 @@ export const authorizationMiddleware = (allowedUserRoles: UserRole[]) => {
     if (commonRoles.length > 0) {
       return next();
     }
-    next(new Forbidden());
+    next(new ForbiddenError());
   };
 };

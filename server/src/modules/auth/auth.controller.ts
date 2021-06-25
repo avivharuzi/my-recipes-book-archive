@@ -14,11 +14,13 @@ import { UserService } from '../users/user.service';
 export class AuthController {
   static user(): RequestHandler {
     return expressAsyncHandler(async (_req, res) => {
-      if (res.locals.user) {
-        const userPublicDetails = UserService.getPublicDetails(res.locals.user);
+      const { user } = res.locals;
+      if (user) {
+        const userPublicDetails = UserService.getPublicDetails(user);
         res.send(userPublicDetails);
+      } else {
+        res.send();
       }
-      return res.send();
     });
   }
 

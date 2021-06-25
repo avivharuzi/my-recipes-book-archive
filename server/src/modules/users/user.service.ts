@@ -1,4 +1,4 @@
-import { BadRequest } from '../../errors/bad-request';
+import { BadRequestError } from '../../errors/bad-request-error';
 import { config } from '../../config';
 import { CreateUserDto } from '../auth/dto/create-user.dto';
 import { EmailTemplateService } from '../shared/email-template.service';
@@ -6,7 +6,7 @@ import { ForgotPasswordDto } from '../auth/dto/forgot-password.dto';
 import { hashPassword } from '../../utils/hash-password';
 import { ImageService } from '../images/image.service';
 import { LoginDto } from '../auth/dto/login.dto';
-import { NotFound } from '../../errors/not-found';
+import { NotFoundError } from '../../errors/not-found-error';
 import { ResendVerificationDto } from '../auth/dto/resend-verification.dto';
 import { ResetPasswordDto } from '../auth/dto/reset-password.dto';
 import { TokenService } from '../tokens/token.service';
@@ -19,12 +19,12 @@ export class UserService {
   static async create(createUserDto: CreateUserDto): Promise<User> {
     const { firstName, lastName, email, userName, password } = createUserDto;
     if (await UserService.isEmailAlreadyInUsed(email)) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'The email address you have entered is already associated with another account.'
       );
     }
     if (await UserService.isUserNameAlreadyInUsed(userName)) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'The username you have entered is already associated with another account.'
       );
     }
@@ -46,7 +46,7 @@ export class UserService {
   static async getById(id: string): Promise<User> {
     const user = await UserModel.findById(id).populate('profileImage');
     if (!user) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return user;
   }
@@ -62,14 +62,14 @@ export class UserService {
   }
 
   static async verify(token: string): Promise<void> {
-    const tokenDetails = await TokenService.findByTokenAndValidate(
+    const tokenDetails = await TokenService.getByTokenAndValidate(
       token,
       TokenType.UserVerification
     );
     const user: User = tokenDetails.user;
     if (user.isVerified) {
       await TokenService.delete(tokenDetails.id);
-      throw new BadRequest(
+      throw new BadRequestError(
         'This account has already been verified. Please log in.'
       );
     }
@@ -85,14 +85,16 @@ export class UserService {
     const { email } = resendVerificationDto;
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw new BadRequest('We were unable to find a account with that email.');
+      throw new BadRequestError(
+        'We were unable to find a account with that email.'
+      );
     }
     if (user.isVerified) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'This account has already been verified. Please log in.'
       );
     }
-    const tokenDetails = await TokenService.findByUserAndCreateOrUpdate(
+    const tokenDetails = await TokenService.getByUserAndCreateOrUpdate(
       user,
       TokenType.UserVerification
     );
@@ -107,12 +109,14 @@ export class UserService {
     const { email } = forgotPasswordDto;
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw new BadRequest('We were unable to find a account with that email.');
+      throw new BadRequestError(
+        'We were unable to find a account with that email.'
+      );
     }
     if (!user.isVerified) {
-      throw new BadRequest('This account has not yet verified.');
+      throw new BadRequestError('This account has not yet verified.');
     }
-    const tokenDetails = await TokenService.findByUserAndCreateOrUpdate(
+    const tokenDetails = await TokenService.getByUserAndCreateOrUpdate(
       user,
       TokenType.PasswordReset
     );
@@ -122,14 +126,14 @@ export class UserService {
   }
 
   static async checkResetPassword(token: string): Promise<void> {
-    await TokenService.findByTokenAndValidate(token, TokenType.PasswordReset);
+    await TokenService.getByTokenAndValidate(token, TokenType.PasswordReset);
   }
 
   static async resetPassword(
     token: string,
     resetPasswordDto: ResetPasswordDto
   ): Promise<void> {
-    const tokenDetails = await TokenService.findByTokenAndValidate(
+    const tokenDetails = await TokenService.getByTokenAndValidate(
       token,
       TokenType.PasswordReset
     );
@@ -154,18 +158,18 @@ export class UserService {
     } else if (userName) {
       searchBy = { userName };
     } else {
-      throw new BadRequest('The email or username is required.');
+      throw new BadRequestError('The email or username is required.');
     }
     const user: User | null = await UserModel.findOne(searchBy).populate(
       'profileImage'
     );
     if (!user || !(await user.comparePassword(password))) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'The username or password you have entered is invalid'
       );
     }
     if (!user.isVerified) {
-      throw new BadRequest('This account has not yet verified.');
+      throw new BadRequestError('This account has not yet verified.');
     }
     return user;
   }
@@ -222,7 +226,7 @@ export class UserService {
       new: true,
     }).populate('profileImage');
     if (!updatedUser) {
-      throw new BadRequest('Failed to update account details.');
+      throw new BadRequestError('Failed to update account details.');
     }
 
     return UserService.getPublicDetails(updatedUser);

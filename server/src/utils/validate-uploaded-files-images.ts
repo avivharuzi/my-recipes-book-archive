@@ -1,7 +1,7 @@
 import { ExpressFileuploadValidator } from 'express-fileupload-validator';
 import { UploadedFile } from 'express-fileupload';
 
-import { BadRequest } from '../errors/bad-request';
+import { BadRequestError } from '../errors/bad-request-error';
 
 export const validateUploadedFilesImages = (
   uploadedFiles: UploadedFile | UploadedFile[],
@@ -17,6 +17,6 @@ export const validateUploadedFilesImages = (
     });
     expressFileuploadValidator.validate(uploadedFiles);
   } catch (error) {
-    throw new BadRequest(error.errors[0]);
+    throw new BadRequestError(error.errors[0]);
   }
 };

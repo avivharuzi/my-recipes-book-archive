@@ -9,7 +9,7 @@ export const verifyJwt = <T extends object>(token: string): Promise<T> => {
       if (err) {
         reject(err);
       } else if (!decoded) {
-        reject('Failed to get jwt decoded content');
+        reject('Failed to get jsonwebtoken decoded content.');
       } else {
         resolve(decoded as T);
       }

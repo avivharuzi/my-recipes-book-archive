@@ -1,8 +1,8 @@
-import { BadRequest } from '../../errors/bad-request';
+import { BadRequestError } from '../../errors/bad-request-error';
 import { createImageSizes, ImageSizes } from '../../utils/create-image-sizes';
 import { deleteImageSizes } from '../../utils/delete-image-sizes';
 import { Image, ImageModel } from './image.model';
-import { NotFound } from '../../errors/not-found';
+import { NotFoundError } from '../../errors/not-found-error';
 
 export class ImageService {
   static async saveAndCreateMany(filesData: Buffer[]): Promise<Image[]> {
@@ -26,7 +26,7 @@ export class ImageService {
   static async delete(id: string): Promise<Image> {
     const image = await ImageModel.findByIdAndDelete(id);
     if (!image) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     await deleteImageSizes(image.sizes);
     return image;
@@ -36,7 +36,7 @@ export class ImageService {
     const query = { id: { $in: ids } };
     const images: Image[] = await ImageModel.find(query);
     if (images.length !== ids.length) {
-      throw new BadRequest('One of the images is not exist.');
+      throw new BadRequestError('One of the images is not exist.');
     }
     await ImageModel.deleteMany(query);
     const deleteImageSizesPromises = images.map(image =>

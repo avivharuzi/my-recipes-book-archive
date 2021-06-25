@@ -1,7 +1,7 @@
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { createSlug } from '../../utils/create-slug';
 import { ImageService } from '../images/image.service';
-import { NotFound } from '../../errors/not-found';
+import { NotFoundError } from '../../errors/not-found-error';
 import { Recipe, RecipeModel } from './recipe.model';
 import { RecipeCommonCreateOrUpdateQuery } from './recipe-common-create-or-update-query';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
@@ -22,7 +22,7 @@ export class RecipeService {
       user: user.id,
     }).populate('coverImage');
     if (!recipe) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return recipe;
   }
@@ -73,7 +73,7 @@ export class RecipeService {
       user: user.id,
     });
     if (!recipe) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return recipe;
   }

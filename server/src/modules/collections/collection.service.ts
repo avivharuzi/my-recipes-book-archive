@@ -1,7 +1,7 @@
-import { BadRequest } from '../../errors/bad-request';
+import { BadRequestError } from '../../errors/bad-request-error';
 import { Collection, CollectionModel } from './collection.model';
 import { CreateCollectionDto } from './dto/create-collection.dto';
-import { NotFound } from '../../errors/not-found';
+import { NotFoundError } from '../../errors/not-found-error';
 import { RecipeService } from '../recipes/recipe.service';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { User } from '../users/user.model';
@@ -21,7 +21,7 @@ export class CollectionService {
       user: user.id,
     }).populate('recipes');
     if (!collection) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return collection;
   }
@@ -46,7 +46,7 @@ export class CollectionService {
   ): Promise<Collection> {
     const { name, description, recipes } = updateCollection;
     if (!(await RecipeService.isAllBelongToUser(user, recipes))) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'One of the recipes is not exists or not belong to the current account.'
       );
     }
@@ -63,7 +63,7 @@ export class CollectionService {
       { new: true }
     ).populate('recipes');
     if (!collection) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return collection;
   }
@@ -74,7 +74,7 @@ export class CollectionService {
       user: user.id,
     });
     if (!collection) {
-      throw new NotFound();
+      throw new NotFoundError();
     }
     return collection;
   }

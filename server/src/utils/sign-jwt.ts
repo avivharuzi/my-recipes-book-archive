@@ -19,7 +19,7 @@ export const signJwt = (
         if (err) {
           reject(err);
         } else if (!encoded) {
-          reject('Failed to sign jwt');
+          reject('Failed to sign jsonwebtoken.');
         } else {
           resolve(encoded);
         }

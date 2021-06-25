@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Forbidden } from '../errors/forbidden';
+import { ForbiddenError } from '../errors/forbidden-error';
 
 export const withoutAuthenticationMiddleware = (
   _req: Request,
@@ -8,7 +8,7 @@ export const withoutAuthenticationMiddleware = (
   next: NextFunction
 ) => {
   if (res.locals.user) {
-    return next(new Forbidden());
+    return next(new ForbiddenError());
   }
   next();
 };

@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { Unauthorized } from '../errors/unauthorized';
+import { UnauthorizedError } from '../errors/unauthorized-error';
 
 export const authenticationMiddleware = (
   _req: Request,
@@ -10,5 +10,5 @@ export const authenticationMiddleware = (
   if (res.locals.user) {
     return next();
   }
-  next(new Unauthorized());
+  next(new UnauthorizedError());
 };

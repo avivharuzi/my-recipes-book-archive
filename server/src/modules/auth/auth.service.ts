@@ -64,14 +64,14 @@ export class AuthService {
   }
 
   static async getUserIdFromAccessToken(accessToken: string): Promise<string> {
-    const jwtDecoded = await verifyJwt<JwtDecoded>(accessToken);
-    return jwtDecoded.sub;
+    const { sub } = await verifyJwt<JwtDecoded>(accessToken);
+    return sub;
   }
 
   static async updateLoginTokens(
     refreshToken: string
   ): Promise<UpdateLoginTokens | null> {
-    const token = await TokenService.findByToken(
+    const token = await TokenService.getByToken(
       refreshToken,
       TokenType.RefreshAuth
     );

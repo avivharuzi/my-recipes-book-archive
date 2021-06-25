@@ -1,7 +1,7 @@
 import * as expressAsyncHandler from 'express-async-handler';
 import { RequestHandler } from 'express';
 
-import { BadRequest } from '../../errors/bad-request';
+import { BadRequestError } from '../../errors/bad-request-error';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { getFilesDataFromUploadedFiles } from '../../utils/get-files-data-from-uploaded-files';
 import { RecipeService } from './recipe.service';
@@ -35,7 +35,7 @@ export class RecipeController {
       );
 
       if (!req.files?.coverImage) {
-        throw new BadRequest('Cover image file is required.');
+        throw new BadRequestError('Cover image file is required.');
       }
       validateUploadedFilesImages(req.files.coverImage, 1);
       const coverImageFileData = getFilesDataFromUploadedFiles(

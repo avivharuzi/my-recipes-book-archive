@@ -9,6 +9,9 @@ import {
   MaxLength,
 } from 'class-validator';
 
+import { passwordRegex } from '../../shared/password-regex';
+import { userNameRegex } from '../../shared/user-name-regex';
+
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
@@ -29,12 +32,12 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @Length(4, 20)
-  @Matches(/^([a-z0-9]|[-._](?![-._])).*$/)
+  @Matches(userNameRegex)
   readonly userName: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(8, 20)
-  @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/)
+  @Matches(passwordRegex)
   readonly password: string;
 }

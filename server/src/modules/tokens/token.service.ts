@@ -1,4 +1,4 @@
-import { BadRequest } from '../../errors/bad-request';
+import { BadRequestError } from '../../errors/bad-request-error';
 import { createRandomToken } from '../../utils/create-random-token';
 import { Token, TokenModel, TokenType } from './token.model';
 import { User } from '../users/user.model';
@@ -24,7 +24,7 @@ export class TokenService {
     ).populate('user');
   }
 
-  static async findByToken(
+  static async getByToken(
     token: string,
     type: TokenType
   ): Promise<Token | null> {
@@ -34,31 +34,31 @@ export class TokenService {
     }).populate('user');
   }
 
-  static async findByTokenAndValidate(
+  static async getByTokenAndValidate(
     token: string,
     type: TokenType
   ): Promise<Token> {
-    const details = await TokenService.findByToken(token, type);
+    const details = await TokenService.getByToken(token, type);
     if (!details || details.isExpired()) {
-      throw new BadRequest(
+      throw new BadRequestError(
         'We were unable to find a valid token. Your token my have expired.'
       );
     }
     return details;
   }
 
-  static async findByUser(user: User, type: TokenType): Promise<Token | null> {
+  static async getByUser(user: User, type: TokenType): Promise<Token | null> {
     return TokenModel.findOne({
       user: user.id,
       type,
     }).populate('user');
   }
 
-  static async findByUserAndCreateOrUpdate(
+  static async getByUserAndCreateOrUpdate(
     user: User,
     type: TokenType
   ): Promise<Token | null> {
-    const details = await TokenService.findByUser(user, type);
+    const details = await TokenService.getByUser(user, type);
     if (!details) {
       return TokenService.create(user, TokenType.PasswordReset);
     } else {
