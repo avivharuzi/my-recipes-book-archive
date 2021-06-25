@@ -1,9 +1,15 @@
 <ng-container *ngIf="recipe$ | async as recipe">
   <div class="flex flex-col lg:flex-row">
     <div class="w-full lg:w-8/12">
-      <header class="mb-6">
+      <header class="mb-8">
         <div class="flex flex-row justify-between">
-          <h1 class="text-5xl font-bold mb-4 mr-3">{{ recipe.title }}</h1>
+          <div>
+            <h1 class="text-5xl font-bold mb-4 mr-3">{{ recipe.title }}</h1>
+            <span class="block mb-6 text-gray-500 text-lg">{{
+              recipe.createdAt | date
+            }}</span>
+            <p class="text-xl">{{ recipe.description }}</p>
+          </div>
           <div
             class="
               flex flex-col
@@ -23,13 +29,7 @@
             ></app-more-dropdown>
           </div>
         </div>
-        <span class="block text-gray-500 text-lg">{{
-          recipe.createdAt | date
-        }}</span>
       </header>
-      <p class="mb-8 text-xl">
-        {{ recipe.description }}
-      </p>
       <div class="flex flex-row flex-wrap mb-8">
         <div class="w-full lg:w-8/12">
           <div class="rounded-md">
