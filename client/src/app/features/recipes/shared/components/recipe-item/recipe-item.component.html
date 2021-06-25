@@ -1,6 +1,7 @@
 <app-loader [isLoading]="isLoading" *ngIf="recipe">
   <app-card
     [title]="recipe.title"
+    [subtitle]="(recipe.createdAt | date) || ''"
     [description]="recipe.description"
     [imgSrc]="recipe.coverImage | image"
     [link]="'/recipes/' + recipe._id"
