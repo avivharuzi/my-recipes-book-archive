@@ -3,12 +3,25 @@
     <div class="w-full lg:w-8/12">
       <header class="mb-6">
         <div class="flex flex-row justify-between">
-          <h1 class="text-5xl font-bold mb-4">{{ recipe.title }}</h1>
-          <app-button class="inline-block" type="default" (click)="print()">
-            <span class="flex"
-              ><span class="material-icons mr-3">print</span>Print</span
-            >
-          </app-button>
+          <h1 class="text-5xl font-bold mb-4 mr-3">{{ recipe.title }}</h1>
+          <div
+            class="
+              flex flex-col
+              lg:items-start
+              lg:flex-row
+              space-y-8
+              lg:space-y-0 lg:space-x-8
+            "
+          >
+            <app-button class="inline-block" type="default" (click)="print()">
+              <span class="flex"
+                ><span class="material-icons mr-3">print</span>Print</span
+              >
+            </app-button>
+            <app-more-dropdown
+              class="flex self-end lg:self-auto"
+            ></app-more-dropdown>
+          </div>
         </div>
         <span class="block text-gray-500 text-lg">{{
           recipe.createdAt | date
