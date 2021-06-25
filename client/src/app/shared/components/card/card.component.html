@@ -1,7 +1,15 @@
-<div class="flex flex-row sm:flex-col w-full rounded-md shadow">
+<div class="flex flex-row sm:flex-col w-full h-full rounded-md shadow">
   <div class="relative w-4/12 sm:w-full rounded-md">
     <img
-      class="w-full h-full rounded-t-md object-cover cursor-pointer"
+      class="
+        w-full
+        h-full
+        sm:h-48
+        lg:h-64
+        rounded-t-md
+        object-cover
+        cursor-pointer
+      "
       [src]="imgSrc"
       [alt]="title + ' - Cover Image'"
       [routerLink]="link"
