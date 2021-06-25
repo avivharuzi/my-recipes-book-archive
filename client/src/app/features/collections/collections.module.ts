@@ -5,6 +5,7 @@ import { CollectionEditComponent } from './components/collection-edit/collection
 import { CollectionFormComponent } from './shared/components/collection-form/collection-form.component';
 import { CollectionListComponent } from './components/collection-list/collection-list.component';
 import { CollectionNewComponent } from './components/collection-new/collection-new.component';
+import { CollectionsComponent } from './collections.component';
 import { CollectionsRoutingModule } from './collections-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -15,6 +16,7 @@ import { SharedModule } from '../../shared/shared.module';
     CollectionFormComponent,
     CollectionListComponent,
     CollectionNewComponent,
+    CollectionsComponent,
   ],
   imports: [CollectionsRoutingModule, SharedModule],
 })

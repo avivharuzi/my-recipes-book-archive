@@ -5,12 +5,19 @@ import { CollectionDetailComponent } from './components/collection-detail/collec
 import { CollectionEditComponent } from './components/collection-edit/collection-edit.component';
 import { CollectionListComponent } from './components/collection-list/collection-list.component';
 import { CollectionNewComponent } from './components/collection-new/collection-new.component';
+import { CollectionsComponent } from './collections.component';
 
 const routes: Routes = [
-  { path: '', component: CollectionListComponent },
-  { path: 'new', component: CollectionNewComponent },
-  { path: ':id', component: CollectionDetailComponent },
-  { path: ':id/edit', component: CollectionEditComponent },
+  {
+    path: '',
+    component: CollectionsComponent,
+    children: [
+      { path: '', component: CollectionListComponent },
+      { path: 'new', component: CollectionNewComponent },
+      { path: ':id', component: CollectionDetailComponent },
+      { path: ':id/edit', component: CollectionEditComponent },
+    ],
+  },
 ];
 
 @NgModule({
