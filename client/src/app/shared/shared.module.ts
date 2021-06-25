@@ -8,6 +8,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
 import { CheckListComponent } from './components/check-list/check-list.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { DirectionListComponent } from './components/direction-list/direction-list.component';
@@ -35,6 +36,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ButtonComponent,
     CardComponent,
     CheckListComponent,
+    ConfirmDeleteComponent,
     ContainerComponent,
     DefaultImageDirective,
     DirectionListComponent,
@@ -62,6 +64,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ButtonComponent,
     CardComponent,
     CheckListComponent,
+    ConfirmDeleteComponent,
     CommonModule,
     ContainerComponent,
     DefaultImageDirective,

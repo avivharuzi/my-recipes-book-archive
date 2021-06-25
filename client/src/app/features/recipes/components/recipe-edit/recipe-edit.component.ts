@@ -18,6 +18,7 @@ export class RecipeEditComponent {
   recipe$: Observable<Recipe>;
   message$: Subject<Message>;
   isLoading: boolean;
+  isGoingToDelete: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,6 +30,7 @@ export class RecipeEditComponent {
     );
     this.message$ = new Subject<Message>();
     this.isLoading = false;
+    this.isGoingToDelete = false;
   }
 
   onFormSubmit(id: string, formData: FormData) {
@@ -45,15 +47,15 @@ export class RecipeEditComponent {
   }
 
   onDelete(id: string): void {
-    if (confirm('Are you sure you want to delete this recipe?')) {
-      this.isLoading = true;
-      this.recipeService
-        .delete(id)
-        .pipe(
-          errorMessageOperator(message => this.message$.next(message)),
-          finalize(() => (this.isLoading = false))
-        )
-        .subscribe(() => this.router.navigate(['/recipes']).then());
-    }
+    this.isLoading = true;
+    this.recipeService
+      .delete(id)
+      .pipe(
+        errorMessageOperator(message => this.message$.next(message)),
+        finalize(() => (this.isLoading = false))
+      )
+      .subscribe(() => {
+        this.router.navigate(['/recipes']).then();
+      });
   }
 }

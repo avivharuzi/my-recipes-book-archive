@@ -22,23 +22,23 @@ export class RecipeItemComponent {
   @Output() delete: EventEmitter<Recipe>;
 
   isLoading: boolean;
+  isGoingToDelete: boolean;
 
   constructor(private router: Router, private recipeService: RecipeService) {
     this.delete = new EventEmitter<Recipe>();
     this.isLoading = false;
+    this.isGoingToDelete = false;
   }
 
   onDelete(): void {
     if (!this.recipe) {
       return;
     }
-    if (confirm('Are you sure you want to delete this recipe?')) {
-      this.isLoading = true;
-      this.recipeService
-        .delete(this.recipe._id)
-        .pipe(finalize(() => (this.isLoading = false)))
-        .subscribe(() => this.delete.emit(this.recipe));
-    }
+    this.isLoading = true;
+    this.recipeService
+      .delete(this.recipe._id)
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe(() => this.delete.emit(this.recipe));
   }
 
   onEdit(): void {

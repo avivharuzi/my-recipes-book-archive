@@ -4,7 +4,15 @@
     <app-recipe-form
       [recipe]="recipe"
       (formSubmit)="onFormSubmit(recipe._id, $event)"
-      (delete)="onDelete(recipe._id)"
+      (delete)="this.isGoingToDelete = true"
     ></app-recipe-form>
   </app-loader>
+
+  <app-modal *ngIf="isGoingToDelete">
+    <app-confirm-delete
+      subject="recipe"
+      (cancel)="isGoingToDelete = false"
+      (delete)="onDelete(recipe._id)"
+    ></app-confirm-delete>
+  </app-modal>
 </ng-container>

@@ -6,6 +6,14 @@
     [imgSrc]="recipe.coverImage | image"
     [link]="'/recipes/' + recipe._id"
     (edit)="onEdit()"
-    (delete)="onDelete()"
+    (delete)="isGoingToDelete = true"
   ></app-card>
+
+  <app-modal *ngIf="isGoingToDelete">
+    <app-confirm-delete
+      subject="recipe"
+      (cancel)="isGoingToDelete = false"
+      (delete)="onDelete()"
+    ></app-confirm-delete>
+  </app-modal>
 </app-loader>
