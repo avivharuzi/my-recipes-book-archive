@@ -9,9 +9,9 @@
       <div class="mt-4 lg:mt-0 mb-8">
         <div class="mb-4 flex justify-center">
           <img
-            class="coverImage object-cover rounded-md"
+            class="coverImage object-contain rounded-md"
             alt="Cover Image"
-            appDefaultImage
+            appDefaultImage="assets/images/defaults/default-upload.jpg"
             [src]="
               coverImagePreview ||
                 (recipe && recipe.coverImage ? (recipe.coverImage | image) : '')
