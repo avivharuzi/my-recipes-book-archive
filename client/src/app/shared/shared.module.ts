@@ -11,6 +11,7 @@ import { CheckListComponent } from './components/check-list/check-list.component
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
 import { DirectionListComponent } from './components/direction-list/direction-list.component';
+import { FilterEmptyPipe } from './pipes/filter-empty.pipe';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormInputComponent } from './components/form-input/form-input.component';
 import { FormInputErrorComponent } from './components/form-input-error/form-input-error.component';
@@ -19,10 +20,12 @@ import { FormTextareaComponent } from './components/form-textarea/form-textarea.
 import { ImagePipe } from './pipes/image.pipe';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { MoreDropdownComponent } from './components/more-dropdown/more-dropdown.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OutsideClickDirective } from './directives/outside-click.directive';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { StatsBoxComponent } from './components/stats-box/stats-box.component';
 import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 
 @NgModule({
@@ -35,6 +38,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ContainerComponent,
     DefaultImageDirective,
     DirectionListComponent,
+    FilterEmptyPipe,
     FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,
@@ -43,12 +47,13 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ImagePipe,
     LoaderComponent,
     LogoComponent,
+    ModalComponent,
     MoreDropdownComponent,
     NavbarComponent,
     OutsideClickDirective,
     SafeUrlPipe,
+    StatsBoxComponent,
     UserDropdownComponent,
-    MoreDropdownComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -61,6 +66,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ContainerComponent,
     DefaultImageDirective,
     DirectionListComponent,
+    FilterEmptyPipe,
     FooterComponent,
     FormInputComponent,
     FormInputErrorComponent,
@@ -69,14 +75,15 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ImagePipe,
     LoaderComponent,
     LogoComponent,
+    ModalComponent,
     MoreDropdownComponent,
     NavbarComponent,
     OutsideClickDirective,
     ReactiveFormsModule,
     RouterModule,
     SafeUrlPipe,
+    StatsBoxComponent,
     UserDropdownComponent,
-    CheckListComponent,
   ],
 })
 export class SharedModule {}

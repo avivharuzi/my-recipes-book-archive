@@ -23,4 +23,8 @@ export class RecipeDetailComponent {
       mergeMap(params => this.recipeService.getDetail(params.get('id') || ''))
     );
   }
+
+  print(): void {
+    window.print();
+  }
 }
