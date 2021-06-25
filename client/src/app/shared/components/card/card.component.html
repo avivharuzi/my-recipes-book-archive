@@ -14,8 +14,11 @@
     </div>
   </div>
   <div class="w-8/12 sm:w-full p-5 cursor-pointer" [routerLink]="link">
-    <h3 class="text-2xl font-bold mb-3 line-clamp-2">{{ title }}</h3>
-    <p class="text-base text-gray-500 line-clamp-2" *ngIf="description">
+    <h3 class="mb-2 text-2xl font-bold line-clamp-2">{{ title }}</h3>
+    <span class="block mb-4 text-gray-500" *ngIf="subtitle">{{
+      subtitle
+    }}</span>
+    <p class="text-base text-gray-700 line-clamp-2" *ngIf="description">
       {{ description }}
     </p>
   </div>

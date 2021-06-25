@@ -16,6 +16,7 @@ export class CardComponent {
   @Input() link!: string | string[];
   @Input() imgSrc!: string;
   @Input() title!: string;
+  @Input() subtitle?: string;
   @Input() description?: string;
 
   @Output() edit: EventEmitter<void>;
