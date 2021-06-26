@@ -1,9 +1,9 @@
-import { BadRequestError } from '../../errors/bad-request-error';
 import { Collection, CollectionModel } from './collection.model';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { NotFoundError } from '../../errors/not-found-error';
 import { RecipeService } from '../recipes/recipe.service';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
+import { UpdateRecipesFromCollectionDto } from './dto/update-recipes-from-collection.dto';
 import { User } from '../users/user.model';
 
 export class CollectionService {
@@ -44,12 +44,7 @@ export class CollectionService {
     user: User,
     updateCollection: UpdateCollectionDto
   ): Promise<Collection> {
-    const { name, description, recipes } = updateCollection;
-    if (!(await RecipeService.isAllBelongToUser(user, recipes))) {
-      throw new BadRequestError(
-        'One of the recipes is not exists or not belong to the current account.'
-      );
-    }
+    const { name, description } = updateCollection;
     const collection = await CollectionModel.findOneAndUpdate(
       {
         _id: id,
@@ -58,7 +53,50 @@ export class CollectionService {
       {
         name,
         description,
-        recipes,
+      },
+      { new: true }
+    ).populate('recipes');
+    if (!collection) {
+      throw new NotFoundError();
+    }
+    return collection;
+  }
+
+  static async updateRecipesByUser(
+    id: string,
+    user: User,
+    { recipes }: UpdateRecipesFromCollectionDto
+  ): Promise<Collection> {
+    await RecipeService.validateIsAllBelongToUser(user, recipes);
+    const collection = await CollectionModel.findOneAndUpdate(
+      {
+        _id: id,
+        user: user.id,
+      },
+      {
+        $addToSet: { recipes: { $each: recipes } },
+      },
+      { new: true }
+    ).populate('recipes');
+    if (!collection) {
+      throw new NotFoundError();
+    }
+    return collection;
+  }
+
+  static async deleteRecipesByUser(
+    id: string,
+    user: User,
+    { recipes }: UpdateRecipesFromCollectionDto
+  ) {
+    await RecipeService.validateIsAllBelongToUser(user, recipes);
+    const collection = await CollectionModel.findOneAndUpdate(
+      {
+        _id: id,
+        user: user.id,
+      },
+      {
+        $pull: { recipes: { $in: recipes } },
       },
       { new: true }
     ).populate('recipes');

@@ -1,3 +1,4 @@
+import { BadRequestError } from '../../errors/bad-request-error';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { createSlug } from '../../utils/create-slug';
 import { ImageService } from '../images/image.service';
@@ -87,6 +88,17 @@ export class RecipeService {
       user: user.id,
     });
     return recipeIds.length === recipes.length;
+  }
+
+  static async validateIsAllBelongToUser(
+    user: User,
+    recipes: string[]
+  ): Promise<void> {
+    if (!(await RecipeService.isAllBelongToUser(user, recipes))) {
+      throw new BadRequestError(
+        'One of the recipes is not exists or not belong to the current account.'
+      );
+    }
   }
 
   static getCommonCreateOrUpdateQuery(
