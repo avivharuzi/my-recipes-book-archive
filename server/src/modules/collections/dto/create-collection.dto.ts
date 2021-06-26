@@ -1,12 +1,10 @@
-// @ts-nocheck
-
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class CreateCollectionDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(128)
-  readonly name: string;
+  readonly name!: string;
 
   @IsOptional()
   @IsString()

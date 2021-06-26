@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { IsEmail, IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 export class ResendVerificationDto {
@@ -7,5 +5,5 @@ export class ResendVerificationDto {
   @IsString()
   @MaxLength(255)
   @IsEmail()
-  readonly email: string;
+  readonly email!: string;
 }

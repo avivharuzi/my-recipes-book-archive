@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   IsEmail,
   IsNotEmpty,
@@ -23,5 +21,5 @@ export class LoginDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  readonly password: string;
+  readonly password!: string;
 }

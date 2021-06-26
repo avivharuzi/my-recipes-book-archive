@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   IsEmail,
   IsNotEmpty,
@@ -16,28 +14,28 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(64)
-  readonly firstName: string;
+  readonly firstName!: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(64)
-  readonly lastName: string;
+  readonly lastName!: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
   @IsEmail()
-  readonly email: string;
+  readonly email!: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(4, 20)
   @Matches(userNameRegex)
-  readonly userName: string;
+  readonly userName!: string;
 
   @IsNotEmpty()
   @IsString()
   @Length(8, 20)
   @Matches(passwordRegex)
-  readonly password: string;
+  readonly password!: string;
 }

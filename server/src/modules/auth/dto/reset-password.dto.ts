@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   IsNotEmpty,
   IsString,
@@ -16,5 +14,5 @@ export class ResetPasswordDto {
   @MinLength(8)
   @MaxLength(20)
   @Matches(passwordRegex)
-  readonly password: string;
+  readonly password!: string;
 }

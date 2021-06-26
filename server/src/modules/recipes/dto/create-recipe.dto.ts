@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   IsArray,
   IsNotEmpty,
@@ -13,33 +11,33 @@ export class CreateRecipeDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(128)
-  readonly title: string;
+  readonly title!: string;
 
   @IsNotEmpty()
   @IsString()
   @MaxLength(255)
-  readonly description: string;
+  readonly description!: string;
 
   @IsNotEmpty()
   @IsArray()
-  readonly ingredients: string[];
+  readonly ingredients!: string[];
 
   @IsNotEmpty()
   @IsArray()
-  readonly directions: string[];
+  readonly directions!: string[];
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  readonly preparationTime: number;
+  readonly preparationTime!: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  readonly cookingTime: number;
+  readonly cookingTime!: number;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  readonly servingsAmount: number;
+  readonly servingsAmount!: number;
 }
