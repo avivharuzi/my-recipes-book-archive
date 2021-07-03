@@ -1,6 +1,9 @@
+import { Pagination } from 'mongoose-simple-pagination';
+
 import { BadRequestError } from '../../errors/bad-request-error';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { createSlug } from '../../utils/create-slug';
+import { FilterDto } from '../shared/dto/filter.dto';
 import { ImageService } from '../images/image.service';
 import { NotFoundError } from '../../errors/not-found-error';
 import { Recipe, RecipeModel } from './recipe.model';
@@ -9,12 +12,27 @@ import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { User } from '../users/user.model';
 
 export class RecipeService {
-  static async getAllByUser(user: User): Promise<Recipe[]> {
-    return RecipeModel.find({
+  static async getAllByUser(
+    user: User,
+    filterDto: FilterDto
+  ): Promise<Pagination<Recipe>> {
+    const filter: any = {
       user: user.id,
-    })
-      .populate('coverImage')
-      .sort('-createdAt');
+    };
+    if (filterDto.query) {
+      filter.title = {
+        $regex: '.*' + filterDto.query + '.*',
+        $options: 'i',
+      };
+    }
+    return RecipeModel.paginate(filter, {
+      page: filterDto.page ? +filterDto.page : 1,
+      perPage: 10,
+      populate: {
+        path: 'coverImage',
+      },
+      sort: '-createdAt',
+    });
   }
 
   static async getDetailsByUser(id: string, user: User): Promise<Recipe> {

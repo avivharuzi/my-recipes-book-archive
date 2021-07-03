@@ -3,6 +3,7 @@ import { RequestHandler } from 'express';
 
 import { BadRequestError } from '../../errors/bad-request-error';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
+import { FilterDto } from '../shared/dto/filter.dto';
 import { getFilesDataFromUploadedFiles } from '../../utils/get-files-data-from-uploaded-files';
 import { RecipeService } from './recipe.service';
 import { transformToClassAndValidate } from '../../utils/transform-to-class-and-validate';
@@ -11,8 +12,15 @@ import { validateUploadedFilesImages } from '../../utils/validate-uploaded-files
 
 export class RecipeController {
   static index(): RequestHandler {
-    return expressAsyncHandler(async (_req, res) => {
-      const recipes = await RecipeService.getAllByUser(res.locals.user);
+    return expressAsyncHandler(async (req, res) => {
+      const filterDto = await transformToClassAndValidate<FilterDto>(
+        FilterDto,
+        req.query
+      );
+      const recipes = await RecipeService.getAllByUser(
+        res.locals.user,
+        filterDto
+      );
       res.send(recipes);
     });
   }

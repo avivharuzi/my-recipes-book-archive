@@ -1,4 +1,8 @@
 import { Document, model, PopulatedDoc, Schema } from 'mongoose';
+import {
+  mongooseSimplePagination,
+  PaginationModel,
+} from 'mongoose-simple-pagination';
 
 import { Recipe } from '../recipes/recipe.model';
 import { User } from '../users/user.model';
@@ -22,7 +26,9 @@ const collectionSchema = new Schema<Collection>(
   { timestamps: true }
 );
 
-export const CollectionModel = model<Collection>(
+collectionSchema.plugin(mongooseSimplePagination);
+
+export const CollectionModel = model<Collection, PaginationModel<Collection>>(
   'Collection',
   collectionSchema,
   'collections'

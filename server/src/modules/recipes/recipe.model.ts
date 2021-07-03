@@ -1,4 +1,8 @@
 import { Document, model, PopulatedDoc, Schema } from 'mongoose';
+import {
+  mongooseSimplePagination,
+  PaginationModel,
+} from 'mongoose-simple-pagination';
 
 import { Image } from '../images/image.model';
 import { User } from '../users/user.model';
@@ -34,4 +38,10 @@ const recipeSchema = new Schema<Recipe>(
   { timestamps: true }
 );
 
-export const RecipeModel = model<Recipe>('Recipe', recipeSchema, 'recipes');
+recipeSchema.plugin(mongooseSimplePagination);
+
+export const RecipeModel = model<Recipe, PaginationModel<Recipe>>(
+  'Recipe',
+  recipeSchema,
+  'recipes'
+);

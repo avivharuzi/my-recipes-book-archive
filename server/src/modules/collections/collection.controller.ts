@@ -4,14 +4,22 @@ import * as expressAsyncHandler from 'express-async-handler';
 import { CollectionService } from './collection.service';
 import { CreateCollectionDto } from './dto/create-collection.dto';
 import { DeleteRecipesFromCollectionDto } from './dto/delete-recipes-from-collection.dto';
+import { FilterDto } from '../shared/dto/filter.dto';
 import { transformToClassAndValidate } from '../../utils/transform-to-class-and-validate';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
 import { UpdateRecipesFromCollectionDto } from './dto/update-recipes-from-collection.dto';
 
 export class CollectionController {
   static index(): RequestHandler {
-    return expressAsyncHandler(async (_req, res) => {
-      const collections = await CollectionService.getAllByUser(res.locals.user);
+    return expressAsyncHandler(async (req, res) => {
+      const filterDto = await transformToClassAndValidate<FilterDto>(
+        FilterDto,
+        req.query
+      );
+      const collections = await CollectionService.getAllByUser(
+        res.locals.user,
+        filterDto
+      );
       res.send(collections);
     });
   }

@@ -1,5 +1,8 @@
+import { Pagination } from 'mongoose-simple-pagination';
+
 import { Collection, CollectionModel } from './collection.model';
 import { CreateCollectionDto } from './dto/create-collection.dto';
+import { FilterDto } from '../shared/dto/filter.dto';
 import { NotFoundError } from '../../errors/not-found-error';
 import { RecipeService } from '../recipes/recipe.service';
 import { UpdateCollectionDto } from './dto/update-collection.dto';
@@ -7,12 +10,24 @@ import { UpdateRecipesFromCollectionDto } from './dto/update-recipes-from-collec
 import { User } from '../users/user.model';
 
 export class CollectionService {
-  static async getAllByUser(user: User): Promise<Collection[]> {
-    return CollectionModel.find({
+  static async getAllByUser(
+    user: User,
+    filterDto: FilterDto
+  ): Promise<Pagination<Collection>> {
+    const filter: any = {
       user: user.id,
-    })
-      .populate('recipes')
-      .sort('-createdAt');
+    };
+    if (filterDto.query) {
+      filter.name = {
+        $regex: '.*' + filterDto.query + '.*',
+        $options: 'i',
+      };
+    }
+    return CollectionModel.paginate(filter, {
+      page: filterDto.page ? +filterDto.page : 1,
+      perPage: 10,
+      sort: '-createdAt',
+    });
   }
 
   static async getDetailsByUser(id: string, user: User): Promise<Collection> {
