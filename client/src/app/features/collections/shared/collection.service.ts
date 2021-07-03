@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Collection } from './collection';
 import { CreateCollectionBody } from './create-collection-body';
 import { environment } from '../../../../environments/environment';
+import { FilterQueryParams } from '../../../shared/shared/filter-query-params';
+import { Pagination } from '../../../shared/shared/pagination';
 import { UpdateCollectionBody } from './update-collection-body';
 
 @Injectable({
@@ -15,8 +17,15 @@ export class CollectionService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll(): Observable<Collection[]> {
-    return this.httpClient.get<Collection[]>(this.baseCollectionApiUrl);
+  getList(
+    filterQueryParams: FilterQueryParams
+  ): Observable<Pagination<Collection>> {
+    return this.httpClient.get<Pagination<Collection>>(
+      this.baseCollectionApiUrl,
+      {
+        params: { ...filterQueryParams },
+      }
+    );
   }
 
   getDetail(id: string): Observable<Collection> {

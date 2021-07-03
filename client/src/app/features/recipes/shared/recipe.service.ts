@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
+import { FilterQueryParams } from '../../../shared/shared/filter-query-params';
+import { Pagination } from '../../../shared/shared/pagination';
 import { Recipe } from './recipe';
 
 @Injectable({
@@ -13,8 +15,12 @@ export class RecipeService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll(): Observable<Recipe[]> {
-    return this.httpClient.get<Recipe[]>(this.baseRecipeApiUrl);
+  getList(
+    filterQueryParams: FilterQueryParams = {}
+  ): Observable<Pagination<Recipe>> {
+    return this.httpClient.get<Pagination<Recipe>>(this.baseRecipeApiUrl, {
+      params: { ...filterQueryParams },
+    });
   }
 
   getDetail(id: string): Observable<Recipe> {
