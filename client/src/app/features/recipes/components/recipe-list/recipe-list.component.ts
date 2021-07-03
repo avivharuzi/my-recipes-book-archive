@@ -1,12 +1,20 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
+import { AppState } from '../../../../store/app.reducer';
+import {
+  cleanRecipesListAction,
+  deleteRecipeFromTheListAction,
+  loadRecipesAction,
+} from '../../store/recipes.actions';
+import { Pagination } from '../../../../shared/shared/pagination';
 import { Recipe } from '../../shared/recipe';
-import { RecipeService } from '../../shared/recipe.service';
+import {
+  selectIsRecipesListLoading,
+  selectRecipesList,
+  selectRecipesListLastPagination,
+} from '../../store/recipes.selectors';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,30 +23,26 @@ import { RecipeService } from '../../shared/recipe.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeListComponent implements OnInit {
-  recipes: Recipe[];
+  recipes$: Observable<Recipe[]>;
+  lastPagination$: Observable<Pagination<Recipe> | null>;
+  isListLoading$: Observable<boolean>;
 
-  constructor(
-    private recipeService: RecipeService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    this.recipes = [];
+  constructor(private store: Store<AppState>) {
+    this.recipes$ = this.store.select(selectRecipesList);
+    this.lastPagination$ = this.store.select(selectRecipesListLastPagination);
+    this.isListLoading$ = this.store.select(selectIsRecipesListLoading);
   }
 
   ngOnInit(): void {
-    this.recipeService.getList().subscribe(recipes => {
-      this.recipes = recipes.documents;
-      this.changeDetectorRef.detectChanges();
-    });
+    this.store.dispatch(cleanRecipesListAction());
+    this.loadRecipes(1);
+  }
+
+  loadRecipes(page: number): void {
+    this.store.dispatch(loadRecipesAction({ filter: { page } }));
   }
 
   onDelete(recipe: Recipe): void {
-    const recipes = this.recipes;
-    const recipeIndex = recipes.indexOf(recipe);
-    if (recipeIndex === -1) {
-      return;
-    }
-    recipes.splice(recipeIndex, 1);
-    this.recipes = [...recipes];
-    this.changeDetectorRef.detectChanges();
+    this.store.dispatch(deleteRecipeFromTheListAction({ recipe }));
   }
 }

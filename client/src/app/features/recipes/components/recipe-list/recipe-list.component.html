@@ -1,13 +1,34 @@
-<div
-  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
->
-  <app-add-item link="/recipes/new">Add a Recipe</app-add-item>
-  <ng-container *ngIf="recipes && recipes.length > 0">
-    <app-recipe-item
-      *ngFor="let recipe of recipes"
-      [recipe]="recipe"
-      (delete)="onDelete($event)"
+<app-loader [isLoading]="(isListLoading$ | async)!">
+  <ng-container *ngIf="recipes$ | async as recipes">
+    <div
+      class="
+        grid grid-cols-1
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        gap-8
+      "
     >
-    </app-recipe-item>
+      <app-add-item link="/recipes/new">Add a Recipe</app-add-item>
+      <ng-container *ngIf="recipes && recipes.length > 0">
+        <app-recipe-item
+          *ngFor="let recipe of recipes"
+          [recipe]="recipe"
+          (delete)="onDelete($event)"
+        >
+        </app-recipe-item>
+      </ng-container>
+    </div>
   </ng-container>
-</div>
+  <ng-container *ngIf="lastPagination$ | async as lastPagination">
+    <ng-container *ngIf="lastPagination && lastPagination.hasNextPage">
+      <div class="flex justify-center mt-8">
+        <app-button
+          type="primary"
+          (click)="loadRecipes(lastPagination.nextPage!)"
+          >LOAD MORE</app-button
+        >
+      </div>
+    </ng-container>
+  </ng-container>
+</app-loader>
