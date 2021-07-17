@@ -1,6 +1,7 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeUrlPipe } from './safe-url.pipe';
 import { TestBed } from '@angular/core/testing';
+
+import { SafeUrlPipe } from './safe-url.pipe';
 
 describe('SafeUrlPipe', () => {
   it('create an instance', () => {

@@ -21,7 +21,7 @@ export class DefaultImageDirective implements OnInit {
     this.src = this.appDefaultImage;
   }
 
-  private readonly defaultImage = 'assets/images/defaults/default-image.jpg';
+  private readonly defaultImage = 'assets/images/defaults/default-image.png';
 
   constructor() {
     this.appDefaultImage = this.defaultImage;
