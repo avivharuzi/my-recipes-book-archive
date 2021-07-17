@@ -13,29 +13,38 @@
       focus:outline-none
       focus:border-yellow-500
     "
+    #comboboxInput
     [placeholder]="placeholder"
-    (focusin)="open()"
-    (keyup)="onKeyup($event)"
+    (focusin)="open(comboboxInput.value)"
+    (keyup)="onKeyup(comboboxInput.value)"
   />
   <div *ngIf="isOpen" class="max-h-64 mt-2 rounded-md shadow overflow-y-scroll">
-    <div *ngFor="let item of items" (click)="itemClick.emit(item); close()">
-      <div
-        class="flex flex-row items-center hover:bg-gray-100 p-5 cursor-pointer"
-      >
-        <div class="mr-3" *ngIf="item.image">
-          <img
-            class="h-12 w-24 object-cover rounded-md"
-            [src]="item.image | image: 'thumbnail'"
-            [alt]="item.title + ' - Combobox Item Image'"
-          />
-        </div>
-        <div>
-          <h3>{{ item.title }}</h3>
-          <span class="text-gray-500" *ngIf="item.subtitle">{{
-            item.subtitle
-          }}</span>
+    <app-loader [isLoading]="isLoading">
+      <div *ngFor="let item of items" (click)="itemClick.emit(item); close()">
+        <div
+          class="
+            flex flex-row
+            items-center
+            hover:bg-gray-100
+            p-5
+            cursor-pointer
+          "
+        >
+          <div class="mr-3" *ngIf="item.image">
+            <img
+              class="h-12 w-24 object-cover rounded-md"
+              [src]="item.image | image: 'thumbnail'"
+              [alt]="item.title + ' - Combobox Item Image'"
+            />
+          </div>
+          <div>
+            <h3>{{ item.title }}</h3>
+            <span class="text-gray-500" *ngIf="item.subtitle">{{
+              item.subtitle
+            }}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </app-loader>
   </div>
 </div>
