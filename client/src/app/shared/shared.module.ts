@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { AddItemComponent } from './components/add-item/add-item.component';
@@ -8,6 +8,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardComponent } from './components/card/card.component';
 import { CheckListComponent } from './components/check-list/check-list.component';
+import { ComboboxComponent } from './components/combobox/combobox.component';
 import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
 import { ContainerComponent } from './components/container/container.component';
 import { DefaultImageDirective } from './directives/default-image.directive';
@@ -36,6 +37,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     ButtonComponent,
     CardComponent,
     CheckListComponent,
+    ComboboxComponent,
     ConfirmDeleteComponent,
     ContainerComponent,
     DefaultImageDirective,
@@ -57,15 +59,16 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     StatsBoxComponent,
     UserDropdownComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   exports: [
     AddItemComponent,
     AlertComponent,
     ButtonComponent,
     CardComponent,
     CheckListComponent,
-    ConfirmDeleteComponent,
+    ComboboxComponent,
     CommonModule,
+    ConfirmDeleteComponent,
     ContainerComponent,
     DefaultImageDirective,
     DirectionListComponent,
@@ -74,6 +77,7 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     FormInputComponent,
     FormInputErrorComponent,
     FormInputFileComponent,
+    FormsModule,
     FormTextareaComponent,
     ImagePipe,
     LoaderComponent,
@@ -88,5 +92,6 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
     StatsBoxComponent,
     UserDropdownComponent,
   ],
+  providers: [DatePipe],
 })
 export class SharedModule {}
